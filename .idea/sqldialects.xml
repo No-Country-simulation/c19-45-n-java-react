@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V1__create_table_usuarios.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V2__create_table_perfil_usuario.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V3__create_table_roles.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V4__create_table_usuario_rol.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V5__create_table_mascotas.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V6__create_table_adopciones.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/backend/petConnect/src/main/resources/db/migration/V7__create_table_mensajes.sql" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
