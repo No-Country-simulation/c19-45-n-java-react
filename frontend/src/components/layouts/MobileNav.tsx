@@ -14,23 +14,20 @@ export default function MobileNav() {
 				<Button
 					size="icon"
 					variant="ghost"
-					className="size-5 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
+					className="size-7 hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 lg:hidden"
 				>
 					<Icons.menu aria-hidden="true" />
-                    <span className="sr-only">Toggle Menu</span>
+					<span className="sr-only">Toggle Menu</span>
 				</Button>
 			</SheetTrigger>
 			<SheetContent side="left" className="sm:max-w-xs">
-				<nav className="grid gap-6 text-lg font-medium">
-					<Link
-						href="#"
-						className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
-						onClick={() => setOpen(false)}
-					>
-						<DogIcon className="h-5 w-5 transition-all group-hover:scale-110" />
-						<span className="sr-only">Vercel</span>
+				<div className="grid gap-6 text-lg font-medium">
+					<Link href="#" className="flex items-center" onClick={() => setOpen(false)}>
+						<DogIcon className="h-5 w-5 mr-2 transition-all group-hover:scale-110" />
+						<span className="font-bold">PetFriendly</span>
+						<span className="sr-only">Home</span>
 					</Link>
-				</nav>
+				</div>
 			</SheetContent>
 		</Sheet>
 	);

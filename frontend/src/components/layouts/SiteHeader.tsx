@@ -5,7 +5,7 @@ import MobileNav from './MobileNav';
 
 export default function SiteHeader() {
 	return (
-		<header className="sticky top-0 z-50 w-full border-b bg-background">
+		<header className="sticky top-0 z-50 w-full border-b bg-headerBg-orangeHeader">
 			<div className="container flex h-16 items-center">
 				<div className="flex items-center gap-8">
 					<Link href="/" className="hidden items-center space-x-2 lg:flex">
@@ -15,9 +15,9 @@ export default function SiteHeader() {
 					<MainNav />
 				</div>
 				<div className="flex flex-1 items-center justify-end space-x-4">
-					<nav className="flex items-center space-x-2 gap-4">
+					<nav className="flex items-center gap-4">
 						<ProfileMenu />
-						<MobileNav/>
+						<MobileNav />
 					</nav>
 				</div>
 			</div>

@@ -1,7 +1,17 @@
+import React from 'react'
+import ProfileDropdown from './ProfileDropdown'
+import AuthActions from './AuthActions'
+
 export default function ProfileMenu() {
   return (
-    <div>
-      fgdfgdf
-    </div>
+    <>
+      {true ? (
+        <ProfileDropdown/>
+      ) : (
+        <div className="flex items-center space-x-6">
+          <AuthActions />
+        </div>
+      )}
+    </>
   )
 }
