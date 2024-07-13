@@ -1,7 +1,11 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: [ 
+    "./src/views/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/modules/pets/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       backgroundImage: {
@@ -11,6 +15,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [ require('daisyui')],
 };
 export default config;
