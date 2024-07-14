@@ -51,7 +51,7 @@ public class EmailController {
         }
 
         usuarioService.saveUsuario(usuario);
-        return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS,"El email ya ha sido confirmado.",null));
+        return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS,"El email ha sido verificado.",null));
     }
 
     @Operation(summary = "Api para reenviar email, envia un nuevo mensaje de verificación al email especificado")
@@ -60,8 +60,8 @@ public class EmailController {
         Usuario usuario = usuarioService.findByEmail(email.email())
                 .orElseThrow(() -> new ApplicationException("No se encontró ningún usuario con el correo proporcionado, por favor registrate."));
 
-        if(!usuario.isEmail_confirmado()) {
-            throw new ApplicationException("Este email ya ha sido verificado, intente iniciar sesión");
+        if(usuario.isEmail_confirmado()) {
+            throw new ApplicationException("Este email ya ha sido verificado anteriormente, intente iniciar sesión");
         }
 
         // Generar un nuevo token y actualizar la fecha de expiración
