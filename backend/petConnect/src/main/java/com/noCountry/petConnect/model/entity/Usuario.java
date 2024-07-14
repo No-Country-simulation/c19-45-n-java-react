@@ -55,6 +55,9 @@ public class Usuario implements UserDetails {
                 .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getNombre()))
                 .collect(Collectors.toList());    }
 
+    @OneToMany(mappedBy = "dueño")
+    private List<Mascota> mascotas;
+
     @Override
     public String getPassword() {
         return password;
