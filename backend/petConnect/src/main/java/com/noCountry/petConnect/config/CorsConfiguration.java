@@ -1,4 +1,4 @@
-package com.noCountry.petConnect.confi;
+package com.noCountry.petConnect.config;
 
 
 import org.springframework.context.annotation.Configuration;
