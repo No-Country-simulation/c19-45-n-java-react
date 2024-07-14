@@ -1,14 +1,15 @@
 package com.noCountry.petConnect.controller;
 
-
+import com.noCountry.petConnect.constants.Status;
+import com.noCountry.petConnect.dto.ApiResponseDTO;
+import com.noCountry.petConnect.dto.AutenticacionUsuarioCrearDTO;
+import com.noCountry.petConnect.dto.AccessTokenDTO;
+import com.noCountry.petConnect.infra.security.CustomUserDetails;
 import com.noCountry.petConnect.infra.security.TokenService;
-import com.noCountry.petConnect.model.dto.AutenticacionUsuarioCrearDTO;
-import com.noCountry.petConnect.model.dto.JWTTokenDTO;
-import com.noCountry.petConnect.model.entity.Usuario;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,27 +19,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SecurityRequirement(name = "bearer-key")
 @Tag(name = "Autenticacion")
 @RestController
 @RequestMapping("/login")
 public class AutenticacionController {
 
-    private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-    public AutenticacionController(AuthenticationManager authenticationManager, TokenService tokenService) {
-        this.authenticationManager = authenticationManager;
-        this.tokenService = tokenService;
-    }
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping
-    @Operation(summary = "Obtiene el token para el usuario asignado que da acceso al resto de endpoints")
-    public ResponseEntity<JWTTokenDTO> autenticarUsuario(@RequestBody @Valid AutenticacionUsuarioCrearDTO datosAutenticacionUsuario) {
+    @Operation(summary = "Al autenticarse se obtiene el token para el usuario asignado que da acceso a los endpoints que asi lo requieren")
+    public ResponseEntity<ApiResponseDTO> autenticarUsuario(@RequestBody @Valid AutenticacionUsuarioCrearDTO datosAutenticacionUsuario) {
         Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.email(), datosAutenticacionUsuario.password());
         Authentication usuarioAutenticado = authenticationManager.authenticate(authToken);
-        String JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
-        return ResponseEntity.ok(new JWTTokenDTO(JWTtoken));
-    }
+        CustomUserDetails customUserDetails = (CustomUserDetails) usuarioAutenticado.getPrincipal();
 
+        String JWTtoken = tokenService.generarToken(customUserDetails.getUsuario());
+        return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Autenticación exitosa", new AccessTokenDTO(JWTtoken)));
+
+    }
 }
