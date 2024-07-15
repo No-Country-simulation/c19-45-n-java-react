@@ -1,4 +1,4 @@
-package com.noCountry.petConnect.model.entity;
+package com.noCountry.petConnect.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity(name = "mascota")
 public class Mascota {

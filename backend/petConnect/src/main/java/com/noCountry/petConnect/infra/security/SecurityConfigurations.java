@@ -31,8 +31,11 @@ public class SecurityConfigurations {
                                     new AntPathRequestMatcher("/v3/api-docs/**"),
                                     new AntPathRequestMatcher("/swagger-ui/**"),
                                     new AntPathRequestMatcher("/login"),
-                                    new AntPathRequestMatcher("/usuario/crear"),
-                                    new AntPathRequestMatcher("/email/confirmacion")
+                                    new AntPathRequestMatcher("/api/usuarios"),
+                                    new AntPathRequestMatcher("/api/email/confirmacion"),
+                                    new AntPathRequestMatcher("/api/email/reenviar"),
+
+                                        new AntPathRequestMatcher("/ws/**")
                                 )
                                 .permitAll()
                                 .anyRequest().authenticated()
