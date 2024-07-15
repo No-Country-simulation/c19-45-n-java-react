@@ -1,6 +1,6 @@
 package com.noCountry.petConnect.repository;
 
-import com.noCountry.petConnect.model.entity.Mascota;
+import com.noCountry.petConnect.model.Mascota;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

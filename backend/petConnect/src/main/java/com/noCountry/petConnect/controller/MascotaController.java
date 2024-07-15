@@ -1,7 +1,7 @@
 package com.noCountry.petConnect.controller;
 
-import com.noCountry.petConnect.model.dto.MascotaDTO;
-import com.noCountry.petConnect.model.entity.Mascota;
+import com.noCountry.petConnect.dto.MascotaDTO;
+import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.service.MascotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package com.noCountry.petConnect.model.dto;
+package com.noCountry.petConnect.dto;
 
-import com.noCountry.petConnect.model.entity.Sexo;
+import com.noCountry.petConnect.model.Sexo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

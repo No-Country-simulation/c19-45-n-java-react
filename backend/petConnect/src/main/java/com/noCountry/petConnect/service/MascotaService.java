@@ -1,7 +1,7 @@
 package com.noCountry.petConnect.service;
 
-import com.noCountry.petConnect.model.dto.MascotaDTO;
-import com.noCountry.petConnect.model.entity.Mascota;
+import com.noCountry.petConnect.model.Mascota;
+import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.repository.MascotaRepository;
 
 import com.noCountry.petConnect.service.exepcions.ResourceNotFoundException;
