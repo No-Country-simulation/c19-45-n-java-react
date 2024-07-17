@@ -1,9 +1,12 @@
 package com.noCountry.petConnect.model;
 
+import com.noCountry.petConnect.infra.errores.ListToJsonConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +37,14 @@ public class Mascota {
 
     private Boolean esterilizado;
 
-    @Lob
-    @Column(name = "foto", columnDefinition="LONGBLOB")
-    private byte[] foto;
-
-
     private String estado;
+
+    @Column(name = "foto_principal_url")
+    private String fotoPrincipalUrl;
+
+    @Convert(converter = ListToJsonConverter.class)
+    @Column(columnDefinition = "json")
+    private List<String> fotosExtra;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_propietario", nullable = false)

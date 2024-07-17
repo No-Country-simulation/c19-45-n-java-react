@@ -4,9 +4,8 @@ import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.MascotaRepository;
-
 import com.noCountry.petConnect.repository.UsuarioRepository;
-import com.noCountry.petConnect.service.exepcions.ResourceNotFoundException;
+import com.noCountry.petConnect.infra.errores.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +25,11 @@ public class MascotaService {
     }
 
     public List<Mascota> getAllMascotas() {
-        return mascotaRepository.findAll();
+        List<Mascota> mascotas = mascotaRepository.findAll();
+        if (mascotas.isEmpty()) {
+            throw new ResourceNotFoundException("No hay mascotas para mostrar");
+        }
+        return mascotas;
     }
 
     public Mascota getMascotaById(long id) {
@@ -46,10 +49,6 @@ public class MascotaService {
             throw new IllegalArgumentException("Se requiere un ID de propietario para crear una mascota");
         }
 
-        if (mascotaDTO.getFoto() != null && mascotaDTO.getFoto().length > 0) {
-            mascota.setFoto(mascotaDTO.getFoto());
-        }
-
         return mascotaRepository.save(mascota);
     }
 
@@ -67,8 +66,9 @@ public class MascotaService {
         existingMascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
         existingMascota.setVacunado(mascotaDTO.getVacunado());
         existingMascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        existingMascota.setFoto(mascotaDTO.getFoto());
         existingMascota.setEstado(mascotaDTO.getEstado());
+        existingMascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
+        existingMascota.setFotosExtra(mascotaDTO.getFotosExtra());
 
         return mascotaRepository.save(existingMascota);
     }
@@ -78,7 +78,7 @@ public class MascotaService {
             mascotaRepository.deleteById(id);
             return true;
         } else {
-            return false;
+            throw new ResourceNotFoundException("Mascota no encontrada");
         }
     }
 
@@ -93,8 +93,10 @@ public class MascotaService {
         mascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
         mascota.setVacunado(mascotaDTO.getVacunado());
         mascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        //mascota.setFoto(mascotaDTO.getFoto());
         mascota.setEstado(mascotaDTO.getEstado());
+        mascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
+        mascota.setFotosExtra(mascotaDTO.getFotosExtra());
+
         return mascota;
     }
 }

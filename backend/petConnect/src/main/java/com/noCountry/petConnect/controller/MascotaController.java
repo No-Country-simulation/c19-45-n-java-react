@@ -1,17 +1,14 @@
 package com.noCountry.petConnect.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.service.MascotaService;
+import com.noCountry.petConnect.infra.errores.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
+
 import java.util.List;
 
 @RestController
@@ -29,68 +26,53 @@ public class MascotaController {
     public ResponseEntity<?> getAllMascotas() {
         try {
             List<Mascota> mascotas = mascotaService.getAllMascotas();
-            if (mascotas.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No hay mascotas para mostrar");
-            }
-            return new ResponseEntity<>(mascotas, HttpStatus.OK);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ocurrió un error al obtener las mascotas: " + e.getMessage());
+            return ResponseEntity.ok(mascotas);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mascota> getMascotaById(@PathVariable Long id) {
-        Mascota mascota = mascotaService.getMascotaById(id);
-        return ResponseEntity.ok(mascota);
+    public ResponseEntity<?> getMascotaById(@PathVariable long id) {
+        try {
+            Mascota mascota = mascotaService.getMascotaById(id);
+            return ResponseEntity.ok(mascota);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Mascota> createMascota(
-            @RequestPart("mascota") String mascotaJson,
-            @RequestPart("foto") MultipartFile foto) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        MascotaDTO mascotaDTO = objectMapper.readValue(mascotaJson, MascotaDTO.class);
-
-        if (!foto.isEmpty()) {
-            mascotaDTO.setFoto(foto.getBytes());
+    @PostMapping
+    public ResponseEntity<?> crearMascota(@RequestBody MascotaDTO mascotaDTO) {
+        try {
+            Mascota nuevaMascota = mascotaService.createMascota(mascotaDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
-
-        Mascota nuevaMascota = mascotaService.createMascota(mascotaDTO);
-        return ResponseEntity.ok(nuevaMascota);
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Mascota> updateMascota(
-            @PathVariable Long id,
-            @RequestPart("mascota") String mascotaJson,
-            @RequestPart("foto") MultipartFile foto) throws IOException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        MascotaDTO mascotaDTO = objectMapper.readValue(mascotaJson, MascotaDTO.class);
-
-        // Convertimos la imagen a bytes y la asignamos al DTO
-        if (!foto.isEmpty()) {
-            mascotaDTO.setFoto(foto.getBytes());
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateMascota(@PathVariable long id, @RequestBody MascotaDTO mascotaDTO) {
+        try {
+            Mascota updatedMascota = mascotaService.updateMascota(id, mascotaDTO);
+            return ResponseEntity.ok(updatedMascota);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-
-        // Llamamos al servicio para actualizar la mascota
-        Mascota mascotaActualizada = mascotaService.updateMascota(id, mascotaDTO);
-        return ResponseEntity.ok(mascotaActualizada);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteMascota(@PathVariable Long id) {
+    public ResponseEntity<?> deleteMascota(@PathVariable long id) {
         try {
-            boolean isDeleted = mascotaService.deleteMascota(id);
-            if (isDeleted) {
-                return ResponseEntity.ok("Mascota eliminada exitosamente.");
+            boolean eliminado = mascotaService.deleteMascota(id);
+            if (eliminado) {
+                return ResponseEntity.ok("Mascota eliminada exitosamente");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mascota no encontrada.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar la mascota");
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se pudo eliminar la mascota. Error: " + e.getMessage());
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
-
 }

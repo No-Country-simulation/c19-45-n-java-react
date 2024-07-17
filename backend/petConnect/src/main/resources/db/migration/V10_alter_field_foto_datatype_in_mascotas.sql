@@ -1,2 +1,0 @@
-ALTER TABLE mascotas
-    MODIFY COLUMN foto LONGBLOB;

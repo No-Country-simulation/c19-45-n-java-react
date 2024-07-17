@@ -1,4 +1,4 @@
-package com.noCountry.petConnect.service.exepcions;
+package com.noCountry.petConnect.infra.errores;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
