@@ -35,12 +35,14 @@ public class Mascota {
     private Boolean esterilizado;
 
     @Lob
+    @Column(name = "foto", columnDefinition="LONGBLOB")
     private byte[] foto;
+
 
     private String estado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_propietario")
+    @JoinColumn(name = "id_propietario", nullable = false)
     private Usuario dueño;
 
 }

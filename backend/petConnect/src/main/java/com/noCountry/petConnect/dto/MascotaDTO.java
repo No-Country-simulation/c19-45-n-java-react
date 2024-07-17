@@ -22,4 +22,5 @@ public class MascotaDTO {
     private Boolean esterilizado;
     private byte[] foto;
     private String estado;
+    private Long propietarioId;
 }

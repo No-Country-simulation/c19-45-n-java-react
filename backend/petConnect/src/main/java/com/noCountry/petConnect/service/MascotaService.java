@@ -2,21 +2,31 @@ package com.noCountry.petConnect.service;
 
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.dto.MascotaDTO;
+import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.MascotaRepository;
 
+import com.noCountry.petConnect.repository.UsuarioRepository;
 import com.noCountry.petConnect.service.exepcions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class MascotaService {
 
     private final MascotaRepository mascotaRepository;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
-    public MascotaService(MascotaRepository mascotaRepository) {
+    public MascotaService(MascotaRepository mascotaRepository, UsuarioRepository usuarioRepository) {
         this.mascotaRepository = mascotaRepository;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    public List<Mascota> getAllMascotas() {
+        return mascotaRepository.findAll();
     }
 
     public Mascota getMascotaById(long id) {
@@ -27,6 +37,19 @@ public class MascotaService {
     @Transactional
     public Mascota createMascota(MascotaDTO mascotaDTO) {
         Mascota mascota = mapToEntity(mascotaDTO);
+
+        if (mascotaDTO.getPropietarioId() != null) {
+            Usuario propietario = usuarioRepository.findById(mascotaDTO.getPropietarioId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + mascotaDTO.getPropietarioId()));
+            mascota.setDueño(propietario);
+        } else {
+            throw new IllegalArgumentException("Se requiere un ID de propietario para crear una mascota");
+        }
+
+        if (mascotaDTO.getFoto() != null && mascotaDTO.getFoto().length > 0) {
+            mascota.setFoto(mascotaDTO.getFoto());
+        }
+
         return mascotaRepository.save(mascota);
     }
 
@@ -50,12 +73,12 @@ public class MascotaService {
         return mascotaRepository.save(existingMascota);
     }
 
-    public String deleteMascota(long id) {
+    public boolean deleteMascota(long id) {
         if (mascotaRepository.existsById(id)) {
             mascotaRepository.deleteById(id);
-            return "Mascota eliminada";
+            return true;
         } else {
-            throw new ResourceNotFoundException("Mascota no encontrada");
+            return false;
         }
     }
 
@@ -70,7 +93,7 @@ public class MascotaService {
         mascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
         mascota.setVacunado(mascotaDTO.getVacunado());
         mascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        mascota.setFoto(mascotaDTO.getFoto());
+        //mascota.setFoto(mascotaDTO.getFoto());
         mascota.setEstado(mascotaDTO.getEstado());
         return mascota;
     }
