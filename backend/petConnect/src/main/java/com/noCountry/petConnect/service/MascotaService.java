@@ -54,23 +54,23 @@ public class MascotaService {
 
     @Transactional
     public Mascota updateMascota(long id, MascotaDTO mascotaDTO) {
-        Mascota existingMascota = mascotaRepository.findById(id)
+        Mascota mascota = mascotaRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
 
-        existingMascota.setNombre(mascotaDTO.getNombre());
-        existingMascota.setEspecie(mascotaDTO.getEspecie());
-        existingMascota.setRaza(mascotaDTO.getRaza());
-        existingMascota.setEdad(mascotaDTO.getEdad());
-        existingMascota.setSexo(mascotaDTO.getSexo());
-        existingMascota.setColor(mascotaDTO.getColor());
-        existingMascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
-        existingMascota.setVacunado(mascotaDTO.getVacunado());
-        existingMascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        existingMascota.setEstado(mascotaDTO.getEstado());
-        existingMascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
-        existingMascota.setFotosExtra(mascotaDTO.getFotosExtra());
+        mascota.setNombre(mascotaDTO.getNombre());
+        mascota.setEspecie(mascotaDTO.getEspecie());
+        mascota.setRaza(mascotaDTO.getRaza());
+        mascota.setEdad(mascotaDTO.getEdad());
+        mascota.setSexo(mascotaDTO.getSexo());
+        mascota.setColor(mascotaDTO.getColor());
+        mascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
+        mascota.setVacunado(mascotaDTO.getVacunado());
+        mascota.setEsterilizado(mascotaDTO.getEsterilizado());
+        mascota.setEstado(mascotaDTO.getEstado());
+        mascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
+        mascota.setFotosExtra(mascotaDTO.getFotosExtra());
 
-        return mascotaRepository.save(existingMascota);
+        return mascotaRepository.save(mascota);
     }
 
     public boolean deleteMascota(long id) {
