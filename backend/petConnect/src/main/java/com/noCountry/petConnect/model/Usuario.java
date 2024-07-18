@@ -43,6 +43,9 @@ public class Usuario {
     private List<Mascota> mascotas;
 
 
+    @OneToOne(mappedBy = "usuario")
+    private PerfilUsuario perfilUsuario;
+
     public Usuario(String username, String email, String password) {
         this.username = username;
         this.email = email;
