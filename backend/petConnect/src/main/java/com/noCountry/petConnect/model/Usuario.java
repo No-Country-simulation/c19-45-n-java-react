@@ -38,6 +38,11 @@ public class Usuario {
     @JsonManagedReference
     private List<Rol> roles;
 
+    @OneToMany(mappedBy = "dueño")
+    @JsonManagedReference
+    private List<Mascota> mascotas;
+
+
     @OneToOne(mappedBy = "usuario")
     private PerfilUsuario perfilUsuario;
 

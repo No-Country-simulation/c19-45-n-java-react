@@ -35,6 +35,8 @@ public class SecurityConfigurations {
                                     new AntPathRequestMatcher("/api/usuarios"),
                                     new AntPathRequestMatcher("/api/email/confirmacion"),
                                     new AntPathRequestMatcher("/api/email/reenviar"),
+                                    new AntPathRequestMatcher("/api/mascotas/**"),
+                                        new AntPathRequestMatcher("/error"),
 
                                         new AntPathRequestMatcher("/ws/**")
                                 )
