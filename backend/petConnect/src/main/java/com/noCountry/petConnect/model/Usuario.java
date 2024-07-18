@@ -39,6 +39,7 @@ public class Usuario {
     private List<Rol> roles;
 
     @OneToMany(mappedBy = "dueño")
+    @JsonManagedReference
     private List<Mascota> mascotas;
 
 

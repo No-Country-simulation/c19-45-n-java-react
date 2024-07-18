@@ -1,5 +1,6 @@
 package com.noCountry.petConnect.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.noCountry.petConnect.infra.errores.ListToJsonConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -48,6 +49,7 @@ public class Mascota {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_propietario", nullable = false)
+    @JsonBackReference
     private Usuario dueño;
 
 }
