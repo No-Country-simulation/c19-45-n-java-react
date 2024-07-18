@@ -27,6 +27,7 @@ public class SecurityConfigurations {
                         auth.requestMatchers(
                                     PathRequest.toStaticResources().atCommonLocations(),
                                     new AntPathRequestMatcher("/image/**"),
+                                    new AntPathRequestMatcher("/api/usuario/{id}"),
                                     new AntPathRequestMatcher("/swagger-ui.html"),
                                     new AntPathRequestMatcher("/v3/api-docs/**"),
                                     new AntPathRequestMatcher("/swagger-ui/**"),
