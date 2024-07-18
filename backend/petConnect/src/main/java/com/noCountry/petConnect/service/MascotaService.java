@@ -1,11 +1,11 @@
 package com.noCountry.petConnect.service;
 
+import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.MascotaRepository;
 import com.noCountry.petConnect.repository.UsuarioRepository;
-import com.noCountry.petConnect.infra.errores.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +27,14 @@ public class MascotaService {
     public List<Mascota> getAllMascotas() {
         List<Mascota> mascotas = mascotaRepository.findAll();
         if (mascotas.isEmpty()) {
-            throw new ResourceNotFoundException("No hay mascotas para mostrar");
+            throw new ApplicationException("No hay mascotas para mostrar");
         }
         return mascotas;
     }
 
     public Mascota getMascotaById(long id) {
         return mascotaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Mascota con el id: " + id + " no encontrada"));
+                .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
     }
 
     @Transactional
@@ -43,7 +43,7 @@ public class MascotaService {
 
         if (mascotaDTO.getPropietarioId() != null) {
             Usuario propietario = usuarioRepository.findById(mascotaDTO.getPropietarioId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + mascotaDTO.getPropietarioId()));
+                    .orElseThrow(() -> new ApplicationException("Usuario no encontrado con id: " + mascotaDTO.getPropietarioId()));
             mascota.setDueño(propietario);
         } else {
             throw new IllegalArgumentException("Se requiere un ID de propietario para crear una mascota");
@@ -55,7 +55,7 @@ public class MascotaService {
     @Transactional
     public Mascota updateMascota(long id, MascotaDTO mascotaDTO) {
         Mascota existingMascota = mascotaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Mascota con el id: " + id + " no encontrada"));
+                .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
 
         existingMascota.setNombre(mascotaDTO.getNombre());
         existingMascota.setEspecie(mascotaDTO.getEspecie());
@@ -78,7 +78,7 @@ public class MascotaService {
             mascotaRepository.deleteById(id);
             return true;
         } else {
-            throw new ResourceNotFoundException("Mascota no encontrada");
+            throw new ApplicationException("Mascota no encontrada");
         }
     }
 
