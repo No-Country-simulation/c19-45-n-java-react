@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -51,6 +52,20 @@ public class MascotaController {
             return ResponseEntity.status(404).body(new ApiResponseDTO<>(Status.ERROR, "Mascota con el id: " + id + " no encontrada", null));
         }
     }
+
+    @GetMapping("/especie/{especie}")
+    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getMascotasByEspecie(@PathVariable String especie) {
+        try {
+            List<Mascota> mascotas = mascotaService.getMascotasByEspecie(especie);
+            List<MascotaResponseDTO> responseDTOs = mascotas.stream()
+                    .map(this::mapToResponseDTO)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas de la especie: " + especie + " obtenida exitosamente", responseDTOs));
+        } catch (ApplicationException e) {
+            return ResponseEntity.ok(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
+        }
+    }
+
 
     @PostMapping
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> createMascota(@RequestBody MascotaDTO mascotaDTO) {

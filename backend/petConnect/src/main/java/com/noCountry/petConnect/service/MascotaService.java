@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MascotaService {
@@ -36,6 +37,15 @@ public class MascotaService {
         return mascotaRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
     }
+
+    public List<Mascota> getMascotasByEspecie(String especie) {
+        List<Mascota> mascotas = mascotaRepository.findByEspecie(especie);
+        if (mascotas.isEmpty()) {
+            throw new ApplicationException("No hay mascotas de la especie " + especie + " para mostrar.");
+        }
+        return mascotas;
+    }
+
 
     @Transactional
     public Mascota createMascota(MascotaDTO mascotaDTO) {
