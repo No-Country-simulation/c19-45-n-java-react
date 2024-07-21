@@ -1,4 +1,4 @@
-import PetDetail from "../components/PetDetail/PetDetail";
+import PetDetail from "../components/PetDetail";
 
 
 
