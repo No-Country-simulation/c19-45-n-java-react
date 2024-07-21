@@ -6,3 +6,4 @@ export * from "./Footer";
 export * from "./GridPicturePets";
 export * from "./GridSpecies";
 export * from "./Navbar";
+export * from "./PetDetail"
