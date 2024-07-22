@@ -21,7 +21,7 @@ export const ViewPetsWelcome = () => {
             animales.Aquí, encontraras adorables mascotas <br />
             que buscan un hogar lleno de amor.
           </p>
-          <button className="btn btn-primary text-2xl m-6">Crear cuenta</button>
+          <button className="btn btn-primary  bg-black text-2xl m-6 hover:bg-gray-600">Crear cuenta</button>
           <a href="#" className="block w-full  underline text-3xl text-black ">ya tengo una cuenta</a>
           
         </div>
