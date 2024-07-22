@@ -14,7 +14,7 @@ public class MascotaDTO {
 
     private Long id;
     private String nombre;
-    private Long especie_id;
+    private Long especieId;
     private String raza;
     private String edad;
     private Sexo sexo;

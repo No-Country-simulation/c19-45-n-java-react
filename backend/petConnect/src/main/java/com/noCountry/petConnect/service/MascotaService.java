@@ -11,9 +11,7 @@ import com.noCountry.petConnect.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MascotaService {
@@ -42,10 +40,14 @@ public class MascotaService {
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
     }
 
-    public List<Mascota> getMascotasByEspecie(Especie especie) {
+
+    public List<Mascota> getMascotasByEspecie(Long especieId) {
+        Especie especie = especieRepository.findById(especieId)
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + especieId + " no encontrada"));
+
         List<Mascota> mascotas = mascotaRepository.findByEspecie(especie);
         if (mascotas.isEmpty()) {
-            throw new ApplicationException("No hay mascotas de la especie " + especie + " para mostrar.");
+            throw new ApplicationException("No hay mascotas de la especie " + especie.getNombre() + " para mostrar.");
         }
         return mascotas;
     }
@@ -63,16 +65,23 @@ public class MascotaService {
             throw new IllegalArgumentException("Se requiere un ID de propietario para crear una mascota");
         }
 
+        if (mascotaDTO.getEspecieId() != null) {
+            Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
+                    .orElseThrow(() -> new ApplicationException("Especie no encontrada con id: " + mascotaDTO.getEspecieId()));
+            mascota.setEspecie(especie);
+        } else {
+            throw new IllegalArgumentException("Se requiere un ID de especie para crear una mascota");
+        }
+
         return mascotaRepository.save(mascota);
     }
-
     @Transactional
     public Mascota updateMascota(long id, MascotaDTO mascotaDTO) {
         Mascota mascota = mascotaRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
 
-        Especie especie = especieRepository.findById(mascotaDTO.getEspecie_id())
-                        .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecie_id() + " no ecnotrado"));
+        Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecieId() + " no encontrada"));
 
         mascota.setNombre(mascotaDTO.getNombre());
         mascota.setEspecie(especie);
@@ -90,6 +99,7 @@ public class MascotaService {
         return mascotaRepository.save(mascota);
     }
 
+
     public boolean deleteMascota(long id) {
         if (mascotaRepository.existsById(id)) {
             mascotaRepository.deleteById(id);
@@ -101,8 +111,8 @@ public class MascotaService {
 
     private Mascota mapToEntity(MascotaDTO mascotaDTO) {
 
-        Especie especie = especieRepository.findById(mascotaDTO.getEspecie_id())
-                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecie_id() + " no ecnotrado"));
+        Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecieId() + " no ecnotrado"));
 
         Mascota mascota = new Mascota();
         mascota.setNombre(mascotaDTO.getNombre());

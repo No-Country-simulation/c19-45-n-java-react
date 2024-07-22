@@ -5,13 +5,11 @@ import com.noCountry.petConnect.dto.ApiResponseDTO;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.dto.MascotaResponseDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
-import com.noCountry.petConnect.model.Especie;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.service.MascotaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ssl.DefaultSslBundleRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +24,10 @@ import java.util.stream.Collectors;
 public class MascotaController {
 
     private final MascotaService mascotaService;
-    private final DefaultSslBundleRegistry sslBundleRegistry;
 
     @Autowired
-    public MascotaController(MascotaService mascotaService, DefaultSslBundleRegistry sslBundleRegistry) {
+    public MascotaController(MascotaService mascotaService) {
         this.mascotaService = mascotaService;
-        this.sslBundleRegistry = sslBundleRegistry;
     }
 
     @GetMapping
@@ -60,29 +56,28 @@ public class MascotaController {
     @GetMapping("/especie/{especieId}")
     public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getMascotasByEspecie(@PathVariable Long especieId) {
         try {
-            Especie especie = new Especie();
-            especie.setId(especieId);
-            List<Mascota> mascotas = mascotaService.getMascotasByEspecie(especie);
+            List<Mascota> mascotas = mascotaService.getMascotasByEspecie(especieId);
             List<MascotaResponseDTO> responseDTOs = mascotas.stream()
                     .map(this::mapToResponseDTO)
                     .collect(Collectors.toList());
-            return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas de la especie: " + especie + " obtenida exitosamente", responseDTOs));
+            return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas de la especie con id: " + especieId + " obtenida exitosamente", responseDTOs));
         } catch (ApplicationException e) {
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
         }
     }
 
-
     @PostMapping
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> createMascota(@RequestBody MascotaDTO mascotaDTO) {
         try {
             Mascota nuevaMascota = mascotaService.createMascota(mascotaDTO);
-            MascotaResponseDTO responseDTO = mapToResponseDTO(nuevaMascota);
+            MascotaResponseDTO responseDTO = new MascotaResponseDTO(nuevaMascota);
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Mascota creada exitosamente", responseDTO));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
+        } catch (ApplicationException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(new ApiResponseDTO<>(Status.ERROR, "Error al crear la mascota", null));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<>(Status.ERROR, "Error al crear la mascota", null));
         }
     }
 
