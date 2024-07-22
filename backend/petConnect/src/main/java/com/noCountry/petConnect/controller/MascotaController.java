@@ -5,8 +5,11 @@ import com.noCountry.petConnect.dto.ApiResponseDTO;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.dto.MascotaResponseDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
+import com.noCountry.petConnect.model.Especie;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.service.MascotaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ssl.DefaultSslBundleRegistry;
 import org.springframework.http.HttpStatus;
@@ -14,9 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Tag(name = "Email")
+@SecurityRequirement(name = "bearer-key")
 @RestController
 @RequestMapping("/api/mascotas")
 public class MascotaController {
@@ -53,9 +57,11 @@ public class MascotaController {
         }
     }
 
-    @GetMapping("/especie/{especie}")
-    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getMascotasByEspecie(@PathVariable String especie) {
+    @GetMapping("/especie/{especieId}")
+    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getMascotasByEspecie(@PathVariable Long especieId) {
         try {
+            Especie especie = new Especie();
+            especie.setId(especieId);
             List<Mascota> mascotas = mascotaService.getMascotasByEspecie(especie);
             List<MascotaResponseDTO> responseDTOs = mascotas.stream()
                     .map(this::mapToResponseDTO)
@@ -110,17 +116,6 @@ public class MascotaController {
     }
 
     private MascotaResponseDTO mapToResponseDTO(Mascota mascota) {
-        return new MascotaResponseDTO(
-                mascota.getId(),
-                mascota.getNombre(),
-                mascota.getEspecie(),
-                mascota.getRaza(),
-                mascota.getEdad(),
-                mascota.getSexo(),
-                mascota.getColor(),
-                mascota.getFotoPrincipalUrl(),
-                mascota.getFotosExtra(),
-                mascota.getEstado()
-        );
+        return new MascotaResponseDTO(mascota);
     }
 }

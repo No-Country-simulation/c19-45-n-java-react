@@ -66,4 +66,11 @@ public class UsuarioController {
                                 "Usuario creado con éxito. Por favor, verifica tu correo electrónico para activar tu cuenta.",null));
     }
 
+    @PostMapping("/usuario/password")
+    public ResponseEntity<ApiResponseDTO> changePassword(@RequestBody String password) {
+        String passwordEncriptada = passwordEncoder.encode(password);
+        //obtener usuario
+        return ResponseEntity.ok().body(new ApiResponseDTO(Status.SUCCESS,"Contraseña cambiada correctamente",null));
+    }
+
 }

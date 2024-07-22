@@ -1,9 +1,11 @@
 package com.noCountry.petConnect.service;
 
 import com.noCountry.petConnect.infra.errores.ApplicationException;
+import com.noCountry.petConnect.model.Especie;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.model.Usuario;
+import com.noCountry.petConnect.repository.EspecieRepository;
 import com.noCountry.petConnect.repository.MascotaRepository;
 import com.noCountry.petConnect.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ public class MascotaService {
 
     private final MascotaRepository mascotaRepository;
     private final UsuarioRepository usuarioRepository;
+    private final EspecieRepository especieRepository;
 
     @Autowired
-    public MascotaService(MascotaRepository mascotaRepository, UsuarioRepository usuarioRepository) {
+    public MascotaService(MascotaRepository mascotaRepository, UsuarioRepository usuarioRepository, EspecieRepository especieRepository) {
         this.mascotaRepository = mascotaRepository;
         this.usuarioRepository = usuarioRepository;
+        this.especieRepository = especieRepository;
     }
 
     public List<Mascota> getAllMascotas() {
@@ -38,7 +42,7 @@ public class MascotaService {
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
     }
 
-    public List<Mascota> getMascotasByEspecie(String especie) {
+    public List<Mascota> getMascotasByEspecie(Especie especie) {
         List<Mascota> mascotas = mascotaRepository.findByEspecie(especie);
         if (mascotas.isEmpty()) {
             throw new ApplicationException("No hay mascotas de la especie " + especie + " para mostrar.");
@@ -67,8 +71,11 @@ public class MascotaService {
         Mascota mascota = mascotaRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
 
+        Especie especie = especieRepository.findById(mascotaDTO.getEspecie_id())
+                        .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecie_id() + " no ecnotrado"));
+
         mascota.setNombre(mascotaDTO.getNombre());
-        mascota.setEspecie(mascotaDTO.getEspecie());
+        mascota.setEspecie(especie);
         mascota.setRaza(mascotaDTO.getRaza());
         mascota.setEdad(mascotaDTO.getEdad());
         mascota.setSexo(mascotaDTO.getSexo());
@@ -93,9 +100,13 @@ public class MascotaService {
     }
 
     private Mascota mapToEntity(MascotaDTO mascotaDTO) {
+
+        Especie especie = especieRepository.findById(mascotaDTO.getEspecie_id())
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecie_id() + " no ecnotrado"));
+
         Mascota mascota = new Mascota();
         mascota.setNombre(mascotaDTO.getNombre());
-        mascota.setEspecie(mascotaDTO.getEspecie());
+        mascota.setEspecie(especie);
         mascota.setRaza(mascotaDTO.getRaza());
         mascota.setEdad(mascotaDTO.getEdad());
         mascota.setSexo(mascotaDTO.getSexo());
