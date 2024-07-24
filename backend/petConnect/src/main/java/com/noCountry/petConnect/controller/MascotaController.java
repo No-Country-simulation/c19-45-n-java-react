@@ -6,6 +6,7 @@ import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.dto.MascotaResponseDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.Mascota;
+import com.noCountry.petConnect.model.Sexo;
 import com.noCountry.petConnect.service.MascotaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -53,16 +54,28 @@ public class MascotaController {
         }
     }
 
-    @GetMapping("/especie/{especieId}")
-    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getMascotasByEspecie(@PathVariable Long especieId) {
+    @GetMapping("/filtrar")
+    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> filtrarMascotas(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) Sexo sexo,
+            @RequestParam(required = false) Long especieId) {
         try {
-            List<Mascota> mascotas = mascotaService.getMascotasByEspecie(especieId);
+            List<Mascota> mascotas = mascotaService.filtrarMascotas(nombre, sexo, especieId);
             List<MascotaResponseDTO> responseDTOs = mascotas.stream()
                     .map(this::mapToResponseDTO)
                     .collect(Collectors.toList());
-            return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas de la especie con id: " + especieId + " obtenida exitosamente", responseDTOs));
+            return ResponseEntity.ok(new ApiResponseDTO<>(
+                    Status.SUCCESS,
+                    "Mascotas filtradas exitosamente",
+                    responseDTOs
+            ));
         } catch (ApplicationException e) {
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<>(
+                    Status.ERROR,
+                    e.getMessage(),
+                    null));
         }
     }
 

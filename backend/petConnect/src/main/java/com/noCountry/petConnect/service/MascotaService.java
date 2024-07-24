@@ -4,6 +4,7 @@ import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.Especie;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.dto.MascotaDTO;
+import com.noCountry.petConnect.model.Sexo;
 import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.EspecieRepository;
 import com.noCountry.petConnect.repository.MascotaRepository;
@@ -11,6 +12,8 @@ import com.noCountry.petConnect.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.EnumSet;
 import java.util.List;
 
 @Service
@@ -40,15 +43,22 @@ public class MascotaService {
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
     }
 
-
-    public List<Mascota> getMascotasByEspecie(Long especieId) {
-        Especie especie = especieRepository.findById(especieId)
-                .orElseThrow(() -> new ApplicationException("Especie con el id: " + especieId + " no encontrada"));
-
-        List<Mascota> mascotas = mascotaRepository.findByEspecie(especie);
-        if (mascotas.isEmpty()) {
-            throw new ApplicationException("No hay mascotas de la especie " + especie.getNombre() + " para mostrar.");
+    public List<Mascota> filtrarMascotas(String nombre, Sexo sexo, Long especieId) {
+        if(especieId != null) {
+            especieRepository.findById(especieId)
+                    .orElseThrow(()-> new ApplicationException("Especie: " + especieId + " no encontrado"));
         }
+
+        if(sexo != null && !EnumSet.allOf(Sexo.class).contains(sexo)) {
+            throw new ApplicationException("El sexo proporcionado no es valido");
+        }
+
+        List<Mascota> mascotas = mascotaRepository.filtrarMascotas(nombre, sexo, especieId);
+
+        if (mascotas.isEmpty()) {
+            throw new ApplicationException("No se encontraron mascotas con los criterios especificados");
+        }
+
         return mascotas;
     }
 
