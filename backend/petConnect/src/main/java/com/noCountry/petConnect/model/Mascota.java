@@ -21,8 +21,6 @@ public class Mascota {
 
     private String nombre;
 
-    private String especie;
-
     private String raza;
 
     private String edad;
@@ -51,5 +49,10 @@ public class Mascota {
     @JoinColumn(name = "id_propietario", nullable = false)
     @JsonBackReference
     private Usuario dueño;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "especie_id", nullable = false)
+    @JsonBackReference
+    private Especie especie;
 
 }
