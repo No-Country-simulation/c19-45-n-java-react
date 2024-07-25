@@ -1,8 +1,7 @@
 "use client";
-import Button from "@/modules/pets/components/ui/auth/Button";
-import { Input } from "../../modules/pets/components/ui/auth/Input";
-import { Label } from "../../modules/pets/components/ui/auth/Label";
+import { Button, Input, Label } from "../../modules/pets/components/ui/auth";
 import { useForm } from "react-hook-form";
+import Link from 'next/link'
 
 export default function Register() {
   const { register, handleSubmit } = useForm();
@@ -92,15 +91,17 @@ export default function Register() {
             </div>
           </div>
           <div>
+            <Link href="/register2" >
             <Button type="submit">siguiente</Button>
+            </Link>
           </div>
         </form>
-        <a
+        <Link
           href="/login"
           className="block w-full underline text-xl text-black mt-4"
         >
           Ya tengo cuenta
-        </a>
+        </Link>
       </div>
     </div>
   );

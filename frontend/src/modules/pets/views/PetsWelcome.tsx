@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import Link from 'next/link'
 
 export const ViewPetsWelcome = () => {
   return (
@@ -20,10 +20,10 @@ export const ViewPetsWelcome = () => {
             Bienvenidos a nuestra <span className="underline font-bold">comunidad</span> de amantes de los
             animales.Aquí, encontraras adorables mascotas que buscan un hogar lleno de amor.
           </p>
-        {/* <Link className="btn m-2 font-bold font-worksans bg-secondary" to="/dashboard">Crear cuenta </Link> */}
-
+          <Link href="/register">
           <button className="btn btn-primary  bg-black text-2xl m-3 hover:bg-gray-600 border-transparent">Crear cuenta</button>
-          <a href="/login" className="sm:text block w-full  text-black  underline lg:text-3xl">ya tengo una cuenta</a>
+          </Link>
+          <Link href="/login" className="sm:text block w-full  text-black  underline lg:text-3xl">ya tengo una cuenta</Link>
           
         </div>
       </div>

@@ -1,9 +1,7 @@
 "use client"
-import { Button } from "../../modules/pets/components/ui/auth/Button"
-import { Input  } from "../../modules/pets/components/ui/auth/Input";
-import { Label  } from "../../modules/pets/components/ui/auth/Label";
+import { Button, Input, Label } from "../../modules/pets/components/ui/auth";
 import { useForm } from "react-hook-form";
-
+import Link from 'next/link'
 
 export default function ViewPetsLogin() {
 
@@ -56,10 +54,12 @@ export default function ViewPetsLogin() {
             </div>
   
             <div>
+              <Link href="/register">
             <Button type="submit">Ingresar</Button> 
+              </Link>
             </div>
           </form>
-          <a href="/register" className="block w-full underline text-xl text-black mt-4">Registrarme</a>
+          <Link href="/register"  className="block w-full underline text-xl text-black mt-4">Registrarme</Link>
         </div>
       </div>
     );

@@ -3,13 +3,8 @@
 export const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center bg-yellow-300 text-black  rounded p-10">
-        <nav className="grid grid-flow-col gap-4">
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav>
+      <footer className="footer footer-center bg-[#FFAC31] text-black  rounded p-10">
+       
         <nav>
           <div className="grid grid-flow-col gap-4">
             <a>
@@ -48,7 +43,7 @@ export const Footer = () => {
           </div>
         </nav>
         <aside>
-          <p>
+          <p className="text-3xl font-bold">
             Copyright © {new Date().getFullYear()} - All right reserved by No
             Country. c19-45-n-java-react
           </p>
