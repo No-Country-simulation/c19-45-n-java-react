@@ -1,11 +1,11 @@
 import { ViewPetsWelcome } from "@/modules/pets/views/PetsWelcome";
-import PetList from "@/modules/pets/views/PetList";
+import CreatePets from "@/modules/pets/views/CreatePets";
 
 const PagePets = () => {
   return (
     <div>
       <ViewPetsWelcome />
-      <PetList />
+      <CreatePets />
     </div>
   );
 };

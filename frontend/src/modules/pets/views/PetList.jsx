@@ -1,13 +1,16 @@
 import React from "react";
 import "./PetList.css";
 import { BiBorderRadius } from "react-icons/bi";
+import Link from "next/link";
 
 const PetList = () => {
   return (
     <div className="containerPetList">
       <div className="contTitle">
         <h1 className="title">Mis Mascotas</h1>
-        <button className="buttonTitle">Crear Mascotas</button>
+        <Link href="/">
+          <button className="buttonTitle">Crear Mascotas</button>
+        </Link>
       </div>
       {/*-------------------------------cardPets--------------------------------*/}
       <div className="cardPets">
