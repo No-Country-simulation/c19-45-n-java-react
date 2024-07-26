@@ -1,7 +1,13 @@
-import { ViewPetsWelcome } from "@/modules/pets/views";
+import { ViewPetsWelcome } from "@/modules/pets/views/PetsWelcome";
+import PetList from "@/modules/pets/views/PetList";
 
 const PagePets = () => {
-  return <ViewPetsWelcome />;
+  return (
+    <div>
+      <ViewPetsWelcome />
+      <PetList />
+    </div>
+  );
 };
 
 export default PagePets;
