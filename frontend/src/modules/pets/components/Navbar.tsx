@@ -3,10 +3,10 @@ import Link from 'next/link'
 export const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-[#FFAC31]	">
+      <div className="navbar bg-[#ff9b31]	">
         <div className="navbar-start">
           
-          <a className="btn btn-ghost text-xl">PetFriendly</a>
+          <Link href='/listado ' className="btn btn-ghost text-xl">PetFriendly</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           {/* <ul className="menu menu-horizontal px-1">
@@ -32,7 +32,7 @@ export const Navbar = () => {
           </ul> */}
         </div>
         <div className="navbar-end ">
-          <Link href='/home' className="btn bg-black text-xl font-bold text-white w-44">home</Link>
+          <Link href='/listado' className="btn bg-black text-xl font-bold text-white w-44">Home</Link>
         </div>
       </div>
     </>

@@ -3,7 +3,7 @@
 export const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center bg-[#FFAC31] text-black  rounded p-10">
+      <footer className="footer footer-center bg-[#ff9b31] text-black  rounded p-10">
        
         <nav>
           <div className="grid grid-flow-col gap-4">
