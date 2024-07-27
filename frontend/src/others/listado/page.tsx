@@ -1,8 +1,8 @@
 "use client";
-import Boton from "@/modules/pets/components/ui/list/Boton";
-import Hero from "../../modules/pets/components/ui/list/Hero";
-import Listcard from "@/modules/pets/components/ui/list/Listcard";
-import ListModal from "@/modules/pets/components/ui/list/Modal";
+import Boton from "@/others/modules/pets/components/ui/list/Boton";
+import Hero from "../modules/pets/components/ui/list/Hero";
+import Listcard from "@/others/modules/pets/components/ui/list/Listcard";
+import ListModal from "@/others/modules/pets/components/ui/list/Modal";
 import { BiLogoBaidu } from "react-icons/bi";
 import { FaDog } from "react-icons/fa";
 import { LiaCatSolid } from "react-icons/lia";
@@ -20,12 +20,12 @@ function Listado() {
       <div className="flex flex-row justify-around">
         <h2 className="flex text-3xl font-bold ml-10 p-6">Especies</h2>
         <ListModal
-        modalId="my_modal_1"
-        title="Hello!"
-        content="Click the button below to close"
-        buttonText="Filtrar"
-        closeButtonText="Close"
-      />
+          modalId="my_modal_1"
+          title="Hello!"
+          content="Click the button below to close"
+          buttonText="Filtrar"
+          closeButtonText="Close"
+        />
       </div>
       <div className="flex items-center justify-center">
         <Boton icon={<BiLogoBaidu className="w-20 h-20 mr-2" />}>Todos</Boton>
@@ -56,7 +56,7 @@ function Listado() {
           buttonText="conocer"
           onButtonClick={() => console.log("Adoptar button clicked")}
         />
-         <Listcard
+        <Listcard
           imageSrc="/imagen-02.png"
           title="Luna"
           sexo="Hembra"

@@ -1,5 +1,5 @@
 "use client";
-import { Button, Input, Label } from "../../modules/pets/components/ui/auth";
+import { Button, Input, Label } from "../modules/pets/components/ui/auth";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 
@@ -40,7 +40,6 @@ function Register2() {
               </option>
               <option>Macho</option>
               <option>Hembra</option>
-             
             </select>
           </div>
           <div>

@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 c19-45-n-java-react
 
-## Getting Started
+- Proyecto No Country - Reto App de Mascotas
 
-First, run the development server:
+## 📋 Indice
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [📖 Descripción](#descripción)
+- [👥 Integrantes](#integrantes)
+- [🛠️ Tecnologías Utilizadas](#tecnologías-utilizadas)
+- [📂 Repositorios](#repositorios)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📖 Descripción
+- Este proyecto fue desarrollado como parte del reto de No Country. 
+- La aplicación tiene como objetivo facilitar la adopción de mascotas, permitiendo a los usuarios conocer mascotas en adopción.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 👥 Integrantes
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [Nataly Rojas](https://github.com/natalyrojas5) - *Project Manager / UX / Frontend Developer*
+- Carolina Rosillo - *QA Engineer / UX*
+- [Edgar Camberos](https://github.com/EdgarCamberos1894) - *Backend Developer*
+- [Samir López M](https://github.com/EdgarCamberos1894) - *Backend Developer*
+- [Robinson Zuñiga](https://github.com/robinszuniga) - *Backend Developer*
+- [Conrado Carlos Alberto Gonzalez](https://github.com/conrado85) - *Frontend Developer*
+- [Jesús García](https://github.com/Jesus-Garcia-Montalvo) - *Frontend Developer*
+- [Jose Luis Capote](https://github.com/jlcapor) - *Frontend Developer*
 
-## Learn More
+## 🛠️ Tecnologías Utilizadas
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js** - Framework de React para la construcción de aplicaciones web.
+- **SprintBoot.js** - Framework para crear aplicaciones backend robustas y escalables en Java.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 📂 Repositorios
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Repositorio Frontend](https://github.com/No-Country-simulation/c19-45-n-java-react/tree/main/backend)
+- [Repositorio Backend](https://github.com/No-Country-simulation/c19-45-n-java-react/tree/main/frontend)
