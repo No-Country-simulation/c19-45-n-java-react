@@ -1,11 +1,21 @@
-import PetDetail from "../components/PetDetail";
-
-
+import {
+  BannerPet,
+  CardPetDetail,
+  Footer,
+  GridPicturePets,
+  GridSpecies,
+  Navbar,
+} from "../components";
 
 export const ViewPetDetail = () => {
   return (
     <>
-      <PetDetail/>
+      <Navbar />
+      <BannerPet />
+      <GridSpecies />
+      <CardPetDetail />
+      <GridPicturePets />
+      <Footer />
     </>
   );
 };
