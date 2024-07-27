@@ -1,7 +1,13 @@
-import { ViewPetsHome } from "@/modules/pets/views";
+import { Banner, PetGrid, PetSpecies } from "@/app/_components";
 
-const PageHome = () => {
-  return <ViewPetsHome />;
+const PagePets = () => {
+  return (
+    <>
+      <Banner />
+      <PetSpecies />
+      <PetGrid />
+    </>
+  );
 };
 
-export default PageHome;
+export default PagePets;
