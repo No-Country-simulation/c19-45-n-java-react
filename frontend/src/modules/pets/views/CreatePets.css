@@ -1,0 +1,148 @@
+.contCreatePets {
+  background: #ffe2b6;
+  height: 100%;
+  padding: 50px;
+  gap: 10px;
+  width: 100%;
+}
+
+.titleCreate {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  .titleCreate {
+    gap: 20px;
+    padding: 0px;
+    font-size: 10px;
+  }
+
+  .createPet {
+    width: 100%;
+    font-size: 10px;
+  }
+  .inputForm {
+    width: 100%;
+  }
+  .campo {
+    width: 100%;
+  }
+}
+
+.createPet {
+  font-size: 70px;
+}
+
+.titleInfoBasico {
+  font-size: 40px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.containerFormBasico {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
+}
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+}
+.labelForm {
+  font-size: 22px;
+  color: #000000;
+}
+.inputForm {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 20px;
+}
+.selectForm {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  height: 50px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 20px;
+}
+
+.selectForm option {
+}
+
+.line {
+  width: 100%;
+  height: 3px;
+  background: #646363;
+}
+
+.containerImageVisual {
+  width: 100%;
+  display: flex;
+  padding: 20px;
+}
+.cardImage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  gap: 20px;
+}
+.image {
+  background: #efefef;
+  width: 341px;
+  height: 303px;
+  border-radius: 20px;
+}
+.buttonUploadImage {
+  background: #292929;
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 15px;
+  font-weight: bold;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.savePet {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.buttonSavePet {
+  background: #292929;
+  width: 230px;
+  height: 80px;
+  border-radius: 15px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  .containerImageVisual {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .cardImage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
