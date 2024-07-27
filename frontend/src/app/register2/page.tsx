@@ -1,14 +1,25 @@
 "use client";
 import { Button, Input, Label } from "../../modules/pets/components/ui/auth";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Link from "next/link";
 
-function Register2() {
-  const { register, handleSubmit } = useForm();
+interface FormValues {
+  sexo: string;
+  photo: string;
+  description: string;
+  
+  // Agrega aquí los otros campos de tu formulario
+}
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data); //en data tiene todos los datos del formulario
-  });
+export default function ViewPetRegister2() {
+ 
+  const { register, handleSubmit } = useForm<FormValues>();
+  
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log(data); //en data sale toda la informacion del registro
+  };
+
 
   return (
     <div className="bg-orange-200 flex min-h-screen items-center justify-center px-6 py-12 lg:px-8">
@@ -24,17 +35,15 @@ function Register2() {
             <a>Contacto</a>
           </li>
         </ul>
-        <form
-          onSubmit={onSubmit}
-          action="#"
-          method="POST"
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="flex items-center justify-between">
               <Label htmlFor="name">Sexo *</Label>
             </div>
-            <select className="select w-full max-w-xs">
+            <select 
+              className="select w-full max-w-xs"
+              {...register("sexo")}
+              >
               <option disabled selected>
                 Seleccione
               </option>
@@ -48,14 +57,12 @@ function Register2() {
               <Label htmlFor="file">Foto de perfil (opcional)</Label>
             </div>
             <div className="mt-2">
-              <Input
-                id="file"
+            <Input
+                name="photo"
+                register={register}
+                placeholder="   Ingresar nombre completo"
                 type="file"
-                required
-                autoComplete="email"
-                placeholder="   Subir foto"
-                {...register("foto")}
-              />
+              />  
             </div>
           </div>
           <div>
@@ -67,14 +74,13 @@ function Register2() {
                 <textarea
                   className="textarea textarea-bordered h-24"
                   placeholder="   Ingresar descripción"
+                  {...register("description")}
                 ></textarea>
               </label>
             </div>
           </div>
-          <div>
-            <Link href="/listado">
-              <Button type="submit">Registrarme</Button>
-            </Link>
+          <div>          
+              <Button type="submit">Registrarme</Button>           
           </div>
         </form>
         <Link
@@ -88,4 +94,3 @@ function Register2() {
   );
 }
 
-export default Register2;

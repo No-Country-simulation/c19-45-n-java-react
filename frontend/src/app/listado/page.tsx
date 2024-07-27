@@ -21,8 +21,7 @@ function Listado() {
         <h2 className="flex text-3xl font-bold ml-10 p-6">Especies</h2>
         <ListModal
         modalId="my_modal_1"
-        title="Hello!"
-        content="Click the button below to close"
+        title="Filtro"
         buttonText="Filtrar"
         closeButtonText="Close"
       />

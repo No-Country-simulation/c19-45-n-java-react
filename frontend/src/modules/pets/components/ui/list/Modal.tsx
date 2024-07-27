@@ -1,9 +1,9 @@
 "use client";
+import  InputModal  from "../list/InputModal";
 
 interface ListModalProps {
   modalId: string;
   title: string;
-  content: string;
   buttonText: string;
   closeButtonText: string;
 }
@@ -11,7 +11,6 @@ interface ListModalProps {
 function ListModal({
   modalId,
   title,
-  content,
   buttonText,
   closeButtonText,
 }: ListModalProps) {
@@ -28,12 +27,16 @@ function ListModal({
         {buttonText}
       </button>
       <dialog id={modalId} className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">{title}</h3>
-          <p className="py-4">{content}</p>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn">{closeButtonText}</button>
+        <div className="modal-box w-1/4 max-w-5xl bg-orange-200">
+          <h3 className="font-extrabold text-3xl text-center">{title}</h3>
+          <div className="modal-action flex flex-row-reverse">
+            <form method="dialog w-full">
+              <div className="flex flex-col m-4 ">
+                <InputModal />
+              </div>
+              <div>
+                <button className="btn">{closeButtonText}</button>
+              </div>
             </form>
           </div>
         </div>

@@ -1,14 +1,26 @@
 "use client";
 import { Button, Input, Label } from "../../modules/pets/components/ui/auth";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import Link from 'next/link'
 
-export default function Register() {
-  const { register, handleSubmit } = useForm();
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  // Agrega aquí los otros campos de tu formulario
+}
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data); //en data tiene todos los datos del formulario
-  });
+  export default function ViewPetsRegister() {
+    
+    const { register, handleSubmit } = useForm<FormValues>();
+  
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
+      console.log(data); //en data sale toda la informacion del registro
+    };
+  
+
 
   return (
     <div className="bg-orange-200 flex min-h-screen items-center justify-center px-6 py-12 lg:px-8">
@@ -24,24 +36,17 @@ export default function Register() {
             <a>Contacto</a>
           </li>
         </ul>
-        <form
-          onSubmit={onSubmit}
-          action="#"
-          method="POST"
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className="flex items-center justify-between">
               <Label htmlFor="name">Nombre completo *</Label>
             </div>
             <div className="mt-2">
-              <Input
-                id="name"
-                type="text"
-                required
-                autoComplete="name"
+            <Input
+                name="name"
+                register={register}
                 placeholder="   Ingresar nombre completo"
-                {...register("name")}
+                required
               />
             </div>
           </div>
@@ -50,13 +55,10 @@ export default function Register() {
               <Label htmlFor="email">Correo Electronico *</Label>
             </div>
             <div className="mt-2">
-              <Input
-                id="email"
-                type="email"
-                required
-                autoComplete="email"
+            <Input
+                name="email"
+                register={register}
                 placeholder="   Ingresar correo electronico"
-                {...register("email")}
               />
             </div>
           </div>
@@ -65,13 +67,11 @@ export default function Register() {
               <Label htmlFor="password">Contraseña *</Label>
             </div>
             <div className="mt-2">
-              <Input
-                id="password"
+            <Input
                 type="password"
-                required
-                autoComplete="current-password"
-                placeholder="   Ingresar su contraseña"
-                {...register("password")}
+                name="password"
+                register={register}
+                placeholder="Escribe tu contraseña"
               />
             </div>
           </div>
@@ -80,20 +80,16 @@ export default function Register() {
               <Label htmlFor="password">Confirmar Contraseña *</Label>
             </div>
             <div className="mt-2">
-              <Input
-                id="password2"
-                type="password2"
-                required
-                autoComplete="current-password"
-                placeholder="   Ingresar su contraseña"
-                {...register("password2")}
+            <Input
+                type="password"
+                name="confirmPassword"
+                register={register}
+                placeholder="Escribe tu contraseña"
               />
             </div>
           </div>
           <div>
-            <Link href="/register2" >
             <Button type="submit">siguiente</Button>
-            </Link>
           </div>
         </form>
         <Link
