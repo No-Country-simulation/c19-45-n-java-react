@@ -24,9 +24,11 @@ public class PerfilUsuario {
 
     private String foto;
 
-    private int telefono;
+    private String telefono;
 
     private String sexo;
+
+    private String descripcion;
 
     private Date fecha_nacimiento;
 
@@ -41,16 +43,31 @@ public class PerfilUsuario {
         this.foto = perfilUsuario.foto();
         this.telefono = perfilUsuario.telefono();
         this.sexo = perfilUsuario.sexo();
+        this.descripcion = perfilUsuario.descripcion();
         this.fecha_nacimiento = perfilUsuario.fecha_nacimiento();
         this.latitud = perfilUsuario.latitud();
         this.longitud = perfilUsuario.longitud();
     }
 
-        public void actualizarPerfilUsuario(PerfilUsuarioDTO perfilUsuario) {
+    public PerfilUsuario(Usuario usuario, String nombre, String foto, String telefono, String sexo, String descripcion, Date fecha_nacimiento) {
+        this.usuario = usuario;
+        this.usuario_id = usuario.getId();
+        this.nombre = nombre;
+        this.foto = foto;
+        this.telefono = telefono;
+        this.sexo = sexo;
+        this.descripcion = descripcion;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
+
+    public void actualizarPerfilUsuario(PerfilUsuarioDTO perfilUsuario) {
         this.nombre = perfilUsuario.nombre();
         this.foto = perfilUsuario.foto();
         this.telefono = perfilUsuario.telefono();
         this.sexo = perfilUsuario.sexo();
+        this.descripcion = perfilUsuario.descripcion();
         this.fecha_nacimiento = perfilUsuario.fecha_nacimiento();
         this.latitud = perfilUsuario.latitud();
         this.longitud = perfilUsuario.longitud();
