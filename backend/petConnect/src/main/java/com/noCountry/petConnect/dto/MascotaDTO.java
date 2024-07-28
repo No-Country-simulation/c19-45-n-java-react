@@ -1,29 +1,23 @@
 package com.noCountry.petConnect.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.noCountry.petConnect.model.Sexo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class MascotaDTO {
 
-    private Long id;
-    private String nombre;
-    private Long especieId;
-    private String raza;
-    private String edad;
-    private Sexo sexo;
-    private String color;
-    private String necesidadesEspeciales;
-    private Boolean vacunado;
-    private Boolean esterilizado;
-    private String estado;
-    private Long propietarioId;
-    private String fotoPrincipalUrl;
-    private List<String> fotosExtra;
+public record MascotaDTO(
+                        @JsonProperty("name")  String nombre,
+                        @JsonProperty("specieId")  Long especieId,
+                        @JsonProperty("breed")  String raza,
+                        @JsonProperty("age")  String edad,
+                        @JsonProperty("sex")  Sexo sexo,
+                        @JsonProperty("color")  String color,
+                        @JsonProperty("specialNeeds") String necesidadesEspeciales,
+                        @JsonProperty("vaccinated") Boolean vacunado,
+                        @JsonProperty("sterilized") Boolean esterilizado,
+                        @JsonProperty("status") String estado,
+                        @JsonProperty("ownerId") Long propietarioId,
+                        @JsonProperty("photo") String fotoPrincipalUrl,
+                        @JsonProperty("additionalPhotos") List<String> fotosExtra) {
 }

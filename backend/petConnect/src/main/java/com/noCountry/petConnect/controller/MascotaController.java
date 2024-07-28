@@ -8,6 +8,7 @@ import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.model.Sexo;
 import com.noCountry.petConnect.service.MascotaService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "Email")
+@Tag(name = "Mascotas")
 @SecurityRequirement(name = "bearer-key")
 @RestController
 @RequestMapping("/api/mascotas")
@@ -31,6 +32,7 @@ public class MascotaController {
         this.mascotaService = mascotaService;
     }
 
+    @Operation(summary = "Api para obtener todas las mascotas")
     @GetMapping
     public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getAllMascotas() {
         List<Mascota> mascotas = mascotaService.getAllMascotas();
@@ -43,6 +45,7 @@ public class MascotaController {
         return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas obtenida exitosamente", responseDTOs));
     }
 
+    @Operation(summary = "Api obtener el detalle de una mascota en especifico")
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> getMascotaById(@PathVariable long id) {
         try {
@@ -54,6 +57,7 @@ public class MascotaController {
         }
     }
 
+    @Operation(summary = "Api para filtrar mascotas por nombre, raza o sexo")
     @GetMapping("/filtrar")
     public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> filtrarMascotas(
             @RequestParam(required = false) String nombre,
@@ -79,6 +83,7 @@ public class MascotaController {
         }
     }
 
+    @Operation(summary = "Api para crear una nueva mascota")
     @PostMapping
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> createMascota(@RequestBody MascotaDTO mascotaDTO) {
         try {
@@ -94,6 +99,7 @@ public class MascotaController {
         }
     }
 
+    @Operation(summary = "Api para actualizar los datos de una mascota")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> updateMascota(@PathVariable Long id, @RequestBody MascotaDTO mascotaDTO) {
         try {
@@ -109,6 +115,7 @@ public class MascotaController {
         }
     }
 
+    @Operation(summary = "Api para borrar una mascota en especifico")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<Void>> deleteMascota(@PathVariable Long id) {
         try {
