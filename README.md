@@ -22,17 +22,16 @@ Es un sistema integral y seguro que facilita la gestión y coordinación en torn
 
 ## ✨ Equipo ✨
 
-| Nombre             | Rol                | GitHub                                                                                                                       | LinkedIn                                                                                                                                   |
-| ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Nataly Rojas       | PM / Frontend / UX | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/natalyrojas5)       | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)       |
-| Carolina Rosillo   | QA Tester / UX     |                                                                                                                              | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/yosmarli-parica)    |
-| Edgar Camberos     | Backend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/EdgarCamberos1894)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-| Samir López     | Backend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/lopezsDev)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-| Robinson Zúñiga     | Backend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/robinszuniga)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-| Conrado González     | Frontend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/conrado85)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-| Jesus Garcia     | Frontend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/Jesus-Garcia-Montalvo)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-| Jose Luis    | Frontend       | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/jlcapor)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)     |
-
+| Nombre           | Rol                | GitHub                                                                                                                          | LinkedIn                                                                                                                                |
+| ---------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Nataly Rojas     | PM / Frontend / UX | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/natalyrojas5)          | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Carolina Rosillo | QA Tester / UX     |                                                                                                                                 | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/yosmarli-parica) |
+| Edgar Camberos   | Backend            | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/EdgarCamberos1894)     | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Samir López      | Backend            | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/lopezsDev)             | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Robinson Zúñiga  | Backend            | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/robinszuniga)          | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Conrado González | Frontend           | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/conrado85)             | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Jesus Garcia     | Frontend           | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/Jesus-Garcia-Montalvo) | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
+| Jose Luis        | Frontend           | [![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat-square&logo=github)](https://github.com/jlcapor)               | [![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com)                    |
 
 ## 🛠️ Tecnologías Utilizadas ⚡
 
@@ -41,6 +40,7 @@ Es un sistema integral y seguro que facilita la gestión y coordinación en torn
 - Next.js
 - TailwindCSS
 - Daisyui
+- Zustand
 
 **Backend**
 
