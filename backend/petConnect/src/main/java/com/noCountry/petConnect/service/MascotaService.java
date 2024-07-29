@@ -1,9 +1,9 @@
 package com.noCountry.petConnect.service;
 
+import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.Especie;
 import com.noCountry.petConnect.model.Mascota;
-import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.model.Sexo;
 import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.EspecieRepository;
@@ -67,17 +67,17 @@ public class MascotaService {
     public Mascota createMascota(MascotaDTO mascotaDTO) {
         Mascota mascota = mapToEntity(mascotaDTO);
 
-        if (mascotaDTO.getPropietarioId() != null) {
-            Usuario propietario = usuarioRepository.findById(mascotaDTO.getPropietarioId())
-                    .orElseThrow(() -> new ApplicationException("Usuario no encontrado con id: " + mascotaDTO.getPropietarioId()));
+        if (mascotaDTO.propietarioId() != null) {
+            Usuario propietario = usuarioRepository.findById(mascotaDTO.propietarioId())
+                    .orElseThrow(() -> new ApplicationException("Usuario no encontrado con id: " + mascotaDTO.propietarioId()));
             mascota.setDueño(propietario);
         } else {
             throw new IllegalArgumentException("Se requiere un ID de propietario para crear una mascota");
         }
 
-        if (mascotaDTO.getEspecieId() != null) {
-            Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
-                    .orElseThrow(() -> new ApplicationException("Especie no encontrada con id: " + mascotaDTO.getEspecieId()));
+        if (mascotaDTO.especieId() != null) {
+            Especie especie = especieRepository.findById(mascotaDTO.especieId())
+                    .orElseThrow(() -> new ApplicationException("Especie no encontrada con id: " + mascotaDTO.especieId()));
             mascota.setEspecie(especie);
         } else {
             throw new IllegalArgumentException("Se requiere un ID de especie para crear una mascota");
@@ -90,21 +90,21 @@ public class MascotaService {
         Mascota mascota = mascotaRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException("Mascota con el id: " + id + " no encontrada"));
 
-        Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
-                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecieId() + " no encontrada"));
+        Especie especie = especieRepository.findById(mascotaDTO.especieId())
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.especieId() + " no encontrada"));
 
-        mascota.setNombre(mascotaDTO.getNombre());
+        mascota.setNombre(mascotaDTO.nombre());
         mascota.setEspecie(especie);
-        mascota.setRaza(mascotaDTO.getRaza());
-        mascota.setEdad(mascotaDTO.getEdad());
-        mascota.setSexo(mascotaDTO.getSexo());
-        mascota.setColor(mascotaDTO.getColor());
-        mascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
-        mascota.setVacunado(mascotaDTO.getVacunado());
-        mascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        mascota.setEstado(mascotaDTO.getEstado());
-        mascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
-        mascota.setFotosExtra(mascotaDTO.getFotosExtra());
+        mascota.setRaza(mascotaDTO.raza());
+        mascota.setEdad(mascotaDTO.edad());
+        mascota.setSexo(mascotaDTO.sexo());
+        mascota.setColor(mascotaDTO.color());
+        mascota.setNecesidadesEspeciales(mascotaDTO.necesidadesEspeciales());
+        mascota.setVacunado(mascotaDTO.vacunado());
+        mascota.setEsterilizado(mascotaDTO.esterilizado());
+        mascota.setEstado(mascotaDTO.estado());
+        mascota.setFotoPrincipalUrl(mascotaDTO.fotoPrincipalUrl());
+        mascota.setFotosExtra(mascotaDTO.fotosExtra());
 
         return mascotaRepository.save(mascota);
     }
@@ -121,22 +121,22 @@ public class MascotaService {
 
     private Mascota mapToEntity(MascotaDTO mascotaDTO) {
 
-        Especie especie = especieRepository.findById(mascotaDTO.getEspecieId())
-                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.getEspecieId() + " no ecnotrado"));
+        Especie especie = especieRepository.findById(mascotaDTO.especieId())
+                .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.especieId() + " no ecnotrado"));
 
         Mascota mascota = new Mascota();
-        mascota.setNombre(mascotaDTO.getNombre());
+        mascota.setNombre(mascotaDTO.nombre());
         mascota.setEspecie(especie);
-        mascota.setRaza(mascotaDTO.getRaza());
-        mascota.setEdad(mascotaDTO.getEdad());
-        mascota.setSexo(mascotaDTO.getSexo());
-        mascota.setColor(mascotaDTO.getColor());
-        mascota.setNecesidadesEspeciales(mascotaDTO.getNecesidadesEspeciales());
-        mascota.setVacunado(mascotaDTO.getVacunado());
-        mascota.setEsterilizado(mascotaDTO.getEsterilizado());
-        mascota.setEstado(mascotaDTO.getEstado());
-        mascota.setFotoPrincipalUrl(mascotaDTO.getFotoPrincipalUrl());
-        mascota.setFotosExtra(mascotaDTO.getFotosExtra());
+        mascota.setRaza(mascotaDTO.raza());
+        mascota.setEdad(mascotaDTO.edad());
+        mascota.setSexo(mascotaDTO.sexo());
+        mascota.setColor(mascotaDTO.color());
+        mascota.setNecesidadesEspeciales(mascotaDTO.necesidadesEspeciales());
+        mascota.setVacunado(mascotaDTO.vacunado());
+        mascota.setEsterilizado(mascotaDTO.esterilizado());
+        mascota.setEstado(mascotaDTO.estado());
+        mascota.setFotoPrincipalUrl(mascotaDTO.fotoPrincipalUrl());
+        mascota.setFotosExtra(mascotaDTO.fotosExtra());
 
         return mascota;
     }

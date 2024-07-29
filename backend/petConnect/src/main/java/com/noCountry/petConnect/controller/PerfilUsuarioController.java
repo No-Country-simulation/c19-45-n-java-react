@@ -55,6 +55,7 @@ public class PerfilUsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<>(Status.SUCCESS,"El perfil de usuario se ha actualizado correctamente",null));
     }
 
+    @Operation(summary = "Api para borrar un perfil de usuario en especifico")
     @DeleteMapping("/api/usuario/{id}")
     public ResponseEntity borrarPerfilUsuario(@PathVariable long id) {
         PerfilUsuario perfil = perfilUsuarioRepository.findById(id)
