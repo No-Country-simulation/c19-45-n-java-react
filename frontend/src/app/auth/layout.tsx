@@ -1,6 +1,6 @@
 import { LayoutMain } from "../_layouts";
 
-const LayoutPets = ({
+const LayoutAuth = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -8,4 +8,4 @@ const LayoutPets = ({
   return <LayoutMain>{children}</LayoutMain>;
 };
 
-export default LayoutPets;
+export default LayoutAuth;

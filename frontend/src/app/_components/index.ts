@@ -10,4 +10,8 @@ export * from "./GoBack";
 export * from "./Contact";
 export * from "./PetPictures";
 export * from "./ModalWrapper";
-export * from "./ModalTeam"
+export * from "./ModalTeam";
+export * from "./Input";
+export * from "./InputPassword";
+export * from "./FormBasic";
+export * from "./StepsForm";
