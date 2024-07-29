@@ -1,4 +1,4 @@
-import { Banner, PetGrid, PetSpecies } from "@/app/_components";
+import { Banner, ModalTeam, PetGrid, PetSpecies } from "@/app/_components";
 
 const PagePets = () => {
   return (
@@ -6,6 +6,7 @@ const PagePets = () => {
       <Banner />
       <PetSpecies />
       <PetGrid />
+      <ModalTeam />
     </>
   );
 };
