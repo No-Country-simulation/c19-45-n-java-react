@@ -25,9 +25,8 @@ const StepButton = ({
 }) => {
   const isActive = currentStep === step;
   return (
-    <button
-      type="button"
-      className={classNames("btn btn-lg text-2xl border-0", {
+    <div
+      className={classNames("p-4 px-8 text-center text-2xl border-0", {
         "bg-black text-white": isActive,
         "bg-transparent text-black hover:bg-transparent": !isActive,
         "rounded-l-lg": isFirst,
@@ -35,7 +34,7 @@ const StepButton = ({
       })}
     >
       <p>{label}</p>
-    </button>
+    </div>
   );
 };
 

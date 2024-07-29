@@ -15,3 +15,7 @@ export * from "./Input";
 export * from "./InputPassword";
 export * from "./FormBasic";
 export * from "./StepsForm";
+export * from "./FormContact";
+export * from "./Select";
+export * from "./BtnUpload";
+export * from "./Textarea";

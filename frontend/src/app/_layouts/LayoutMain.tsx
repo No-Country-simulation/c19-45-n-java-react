@@ -1,5 +1,5 @@
 import React from "react";
-import { Footer, Navbar } from "../_components";
+import { Footer, ModalTeam, Navbar } from "../_components";
 
 interface ILayoutMain {
   children: React.ReactNode;
@@ -13,6 +13,7 @@ export const LayoutMain = ({ children }: ILayoutMain) => {
         {children}
       </main>
       <Footer />
+      <ModalTeam />
     </>
   );
 };
