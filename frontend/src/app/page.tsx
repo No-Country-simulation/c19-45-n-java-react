@@ -9,9 +9,15 @@ const PageWelcome = () => {
       <WelcomeTitle />
       <WelcomeContent />
       <Link href="/mascotas">
-        <button className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl">
+        <button className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl mt-6">
           Ingresar
         </button>
+      </Link>
+      <Link
+        href="/auth/inicio-sesion"
+        className="underline font-medium text-3xl mt-5"
+      >
+        Ya tengo una cuenta
       </Link>
     </main>
   );

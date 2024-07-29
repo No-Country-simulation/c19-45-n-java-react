@@ -4,7 +4,9 @@ import com.noCountry.petConnect.constants.Status;
 import com.noCountry.petConnect.dto.ApiResponseDTO;
 import com.noCountry.petConnect.dto.MascotaDTO;
 import com.noCountry.petConnect.dto.MascotaResponseDTO;
+import com.noCountry.petConnect.dto.MascotaSimpleResponseDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
+import com.noCountry.petConnect.mapper.MascotaMapper;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.model.Sexo;
 import com.noCountry.petConnect.service.MascotaService;
@@ -16,7 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Tag(name = "Mascotas")
@@ -26,31 +30,31 @@ import java.util.stream.Collectors;
 public class MascotaController {
 
     private final MascotaService mascotaService;
+    private final MascotaMapper mascotaMapper;
 
     @Autowired
-    public MascotaController(MascotaService mascotaService) {
+    public MascotaController(MascotaService mascotaService, MascotaMapper mascotaMapper) {
         this.mascotaService = mascotaService;
+        this.mascotaMapper = mascotaMapper;
     }
 
     @Operation(summary = "Api para obtener todas las mascotas")
     @GetMapping
-    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> getAllMascotas() {
+    public ResponseEntity<ApiResponseDTO<List<MascotaSimpleResponseDTO>>> getAllMascotas() {
         List<Mascota> mascotas = mascotaService.getAllMascotas();
         if (mascotas.isEmpty()) {
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.ERROR, "No hay mascotas para mostrar", null));
         }
-        List<MascotaResponseDTO> responseDTOs = mascotas.stream()
-                .map(this::mapToResponseDTO)
-                .collect(Collectors.toList());
+        List<MascotaSimpleResponseDTO> responseDTOs = mascotaMapper.toSimpleResponseDTOList(mascotas);
         return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Lista de mascotas obtenida exitosamente", responseDTOs));
     }
 
     @Operation(summary = "Api obtener el detalle de una mascota en especifico")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> getMascotaById(@PathVariable long id) {
+    public ResponseEntity<ApiResponseDTO<MascotaSimpleResponseDTO>> getMascotaById(@PathVariable long id) {
         try {
             Mascota mascota = mascotaService.getMascotaById(id);
-            MascotaResponseDTO responseDTO = mapToResponseDTO(mascota);
+            MascotaSimpleResponseDTO responseDTO = mascotaMapper.toSimpleResponseDTO(mascota);
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Mascota obtenida exitosamente", responseDTO));
         } catch (ApplicationException e) {
             return ResponseEntity.status(404).body(new ApiResponseDTO<>(Status.ERROR, "Mascota con el id: " + id + " no encontrada", null));
@@ -59,27 +63,15 @@ public class MascotaController {
 
     @Operation(summary = "Api para filtrar mascotas por nombre, raza o sexo")
     @GetMapping("/filtrar")
-    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> filtrarMascotas(
-            @RequestParam(required = false) String nombre,
-            @RequestParam(required = false) Sexo sexo,
-            @RequestParam(required = false) Long especieId) {
+    public ResponseEntity<ApiResponseDTO<List<MascotaResponseDTO>>> filtrarMascotas(@RequestParam(required = false) String nombre, @RequestParam(required = false) Sexo sexo, @RequestParam(required = false) Long especieId) {
         try {
             List<Mascota> mascotas = mascotaService.filtrarMascotas(nombre, sexo, especieId);
-            List<MascotaResponseDTO> responseDTOs = mascotas.stream()
-                    .map(this::mapToResponseDTO)
-                    .collect(Collectors.toList());
-            return ResponseEntity.ok(new ApiResponseDTO<>(
-                    Status.SUCCESS,
-                    "Mascotas filtradas exitosamente",
-                    responseDTOs
-            ));
+            List<MascotaResponseDTO> responseDTOs = mascotas.stream().map(mascotaMapper::toResponseDTO).collect(Collectors.toList());
+            return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Mascotas filtradas exitosamente", responseDTOs));
         } catch (ApplicationException e) {
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<>(
-                    Status.ERROR,
-                    e.getMessage(),
-                    null));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
         }
     }
 
@@ -104,7 +96,7 @@ public class MascotaController {
     public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> updateMascota(@PathVariable Long id, @RequestBody MascotaDTO mascotaDTO) {
         try {
             Mascota updatedMascota = mascotaService.updateMascota(id, mascotaDTO);
-            MascotaResponseDTO responseDTO = mapToResponseDTO(updatedMascota);
+            MascotaResponseDTO responseDTO = mascotaMapper.toResponseDTO(updatedMascota);
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Mascota actualizada exitosamente", responseDTO));
         } catch (ApplicationException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponseDTO<>(Status.ERROR, e.getMessage(), null));
@@ -130,7 +122,5 @@ public class MascotaController {
         }
     }
 
-    private MascotaResponseDTO mapToResponseDTO(Mascota mascota) {
-        return new MascotaResponseDTO(mascota);
-    }
+
 }
