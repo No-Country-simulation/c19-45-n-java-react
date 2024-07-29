@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import { IoIosFemale } from "react-icons/io";
 import { IoIosMale } from "react-icons/io";
+import { IoArrowForward } from "react-icons/io5";
 import { PET_SEX } from "../_constants";
-import Link from "next/link";
 
 interface IPet {
   name: string;
@@ -32,7 +33,8 @@ export const Pet = ({ name, sex, age }: IPet) => {
       <p className="text-2xl mb-4">{age} años</p>
       <Link href="/mascotas/1">
         <button className="btn btn-active text-white btn-lg shadow-lg text-xl px-8 w-full">
-          Conocer
+          <span>Conocer</span>
+          <IoArrowForward size={30} />
         </button>
       </Link>
     </aside>

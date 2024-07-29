@@ -5,3 +5,7 @@ export * from "./PetSpecies";
 export * from "./WelcomeTitle";
 export * from "./WelcomeContent";
 export * from "./PetGrid";
+export * from "./BannerPet";
+export * from "./GoBack";
+export * from "./Contact";
+export * from "./PetPictures";
