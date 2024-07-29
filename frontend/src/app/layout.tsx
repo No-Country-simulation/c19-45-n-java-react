@@ -23,8 +23,6 @@ export default function RootLayout({
         className={`${inter.className} bg-[#FFE2B6] min-h-screen text-black`}
       >
         {children}
-        {/* <Navbar /> */}
-        {/* <main className="container__appPets py-14">{children}</main> */}
       </body>
     </html>
   );
