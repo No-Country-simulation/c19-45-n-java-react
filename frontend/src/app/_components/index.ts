@@ -9,3 +9,5 @@ export * from "./BannerPet";
 export * from "./GoBack";
 export * from "./Contact";
 export * from "./PetPictures";
+export * from "./ModalWrapper";
+export * from "./ModalTeam"
