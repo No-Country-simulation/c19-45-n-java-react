@@ -1,20 +1,22 @@
 package com.noCountry.petConnect.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.noCountry.petConnect.model.Mascota;
 import com.noCountry.petConnect.model.Sexo;
+
 import java.util.List;
 
 public record MascotaResponseDTO(
         Long id,
-        String nombre,
-        EspecieDTO especie,
-        String raza,
-        String edad,
-        Sexo sexo,
-        String color,
-        String fotoPrincipalUrl,
-        List<String> fotosExtra,
-        String estado
+        @JsonProperty("name") String name,
+        @JsonProperty("specie") EspecieDTO especie,
+        @JsonProperty("breed") String raza,
+        @JsonProperty("age") String edad,
+        @JsonProperty("sex") Sexo sexo,
+        @JsonProperty("color") String color,
+        @JsonProperty("photo") String fotoPrincipalUrl,
+        @JsonProperty("additionalPhotos")List<String> fotosExtra,
+        @JsonProperty("status") String estado
 ) {
     public MascotaResponseDTO(Mascota mascota) {
         this(mascota.getId(),
