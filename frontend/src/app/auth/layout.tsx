@@ -1,4 +1,4 @@
-import { LayoutMain } from "../_layouts";
+import { LayoutMain } from "@/layouts";
 
 const LayoutAuth = ({
   children,
