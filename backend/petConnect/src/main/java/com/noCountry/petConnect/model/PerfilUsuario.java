@@ -12,12 +12,13 @@ import java.util.Date;
 @Entity
 @Table(name = "perfil_usuario")
 public class PerfilUsuario {
+
     @Id
-    @Column(name = "usuario_id")
-    private Long usuario_id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Nueva clave primaria
 
     @OneToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", unique = true) // Establece la relación con Usuario
     private Usuario usuario;
 
     private String nombre;
@@ -30,45 +31,34 @@ public class PerfilUsuario {
 
     private String descripcion;
 
-    private Date fecha_nacimiento;
+    @Column(name = "fecha_nacimiento")
+    private Date fechaNacimiento;
 
     private int latitud;
 
     private int longitud;
 
-
-    public PerfilUsuario(long id, PerfilUsuarioDTO perfilUsuario) {
-        this.nombre = perfilUsuario.nombre();
-        this.usuario_id = id;
-        this.foto = perfilUsuario.foto();
-        this.telefono = perfilUsuario.telefono();
-        this.sexo = perfilUsuario.sexo();
-        this.descripcion = perfilUsuario.descripcion();
-        this.fecha_nacimiento = perfilUsuario.fecha_nacimiento();
-        this.latitud = perfilUsuario.latitud();
-        this.longitud = perfilUsuario.longitud();
-    }
-
-    public PerfilUsuario(Usuario usuario, String nombre, String foto, String telefono, String sexo, String descripcion, Date fecha_nacimiento) {
+    // Constructor con todos los parámetros
+    public PerfilUsuario(Usuario usuario, String nombre, String foto, String telefono, String sexo, String descripcion, Date fechaNacimiento, int latitud, int longitud) {
         this.usuario = usuario;
-        this.usuario_id = usuario.getId();
         this.nombre = nombre;
         this.foto = foto;
         this.telefono = telefono;
         this.sexo = sexo;
         this.descripcion = descripcion;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fechaNacimiento = fechaNacimiento;
         this.latitud = latitud;
         this.longitud = longitud;
     }
 
+    // Método para actualizar el perfil de usuario
     public void actualizarPerfilUsuario(PerfilUsuarioDTO perfilUsuario) {
         this.nombre = perfilUsuario.nombre();
         this.foto = perfilUsuario.foto();
         this.telefono = perfilUsuario.telefono();
         this.sexo = perfilUsuario.sexo();
         this.descripcion = perfilUsuario.descripcion();
-        this.fecha_nacimiento = perfilUsuario.fecha_nacimiento();
+        this.fechaNacimiento = perfilUsuario.fecha_nacimiento();
         this.latitud = perfilUsuario.latitud();
         this.longitud = perfilUsuario.longitud();
     }

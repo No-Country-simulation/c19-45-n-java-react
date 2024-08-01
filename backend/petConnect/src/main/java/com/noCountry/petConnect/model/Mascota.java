@@ -42,7 +42,7 @@ public class Mascota {
     private String fotoPrincipalUrl;
 
     @Convert(converter = ListToJsonConverter.class)
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "TEXT")
     private List<String> fotosExtra;
 
     @ManyToOne(fetch = FetchType.LAZY)
