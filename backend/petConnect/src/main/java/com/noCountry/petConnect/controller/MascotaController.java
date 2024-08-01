@@ -51,10 +51,10 @@ public class MascotaController {
 
     @Operation(summary = "Api obtener el detalle de una mascota en especifico")
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponseDTO<MascotaSimpleResponseDTO>> getMascotaById(@PathVariable long id) {
+    public ResponseEntity<ApiResponseDTO<MascotaResponseDTO>> getMascotaById(@PathVariable long id) {
         try {
             Mascota mascota = mascotaService.getMascotaById(id);
-            MascotaSimpleResponseDTO responseDTO = mascotaMapper.toSimpleResponseDTO(mascota);
+            MascotaResponseDTO responseDTO = mascotaMapper.toResponseDTO(mascota);
             return ResponseEntity.ok(new ApiResponseDTO<>(Status.SUCCESS, "Mascota obtenida exitosamente", responseDTO));
         } catch (ApplicationException e) {
             return ResponseEntity.status(404).body(new ApiResponseDTO<>(Status.ERROR, "Mascota con el id: " + id + " no encontrada", null));
