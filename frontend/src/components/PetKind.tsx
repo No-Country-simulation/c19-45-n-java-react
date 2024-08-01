@@ -4,7 +4,8 @@ import { LiaCatSolid } from "react-icons/lia";
 import { FaDog } from "react-icons/fa";
 import { PET_SPECIES } from "@/constants";
 
-interface IPetKind {
+export interface IPetKind {
+  id?: number;
   name: string;
   specie?: string;
   active?: boolean;

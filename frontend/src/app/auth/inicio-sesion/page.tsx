@@ -16,8 +16,9 @@ const PageLogin = () => {
           label="Correo electrónico"
           type="email"
           placeholder="Ingresar correo"
+          value="usuario@gmail.com"
         />
-        <InputPassword label="Contraseña" placeholder="Ingrese su contraseña" />
+        <InputPassword label="Contraseña" placeholder="Ingrese su contraseña" value="Admin123@" />
 
         <div className="mt-4 flex flex-col items-center gap-4">
           <Link

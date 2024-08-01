@@ -1,9 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { FormPetBasic, FormPetHealth, FormPetPictures } from "@/components";
+import { useSearchParams } from "next/navigation";
 
 const PageDashboardPet = () => {
-  const isAdd = true;
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
+  const action = params.get("accion") ?? "crear-mascota";
   return (
     <>
       <div className="flex gap-4 mb-6">
@@ -11,8 +17,7 @@ const PageDashboardPet = () => {
           <IoArrowBackOutline size={45} />
         </Link>
         <h1 className="text-5xl font-bold">
-          {isAdd ? "Crear" : "Editar"}
-          Mascota
+          {action === "crear-mascota" ? "Crear " : "Editar "} Mascota
         </h1>
       </div>
       <FormPetBasic />
@@ -24,7 +29,7 @@ const PageDashboardPet = () => {
           type="button"
           className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl"
         >
-          <p>{isAdd ? "Crear" : "Editar"} Mascota</p>
+          <p>{action === "crear-mascota" ? "Crear" : "Editar"} Mascota</p>
         </button>
       </div>
     </>

@@ -1,16 +1,19 @@
-import { PET_SEX } from "@/constants";
-import { Pet } from "./Pet";
+import { IPet, Pet } from "./Pet";
 import { PetFoundNumber } from "./PetFoundNumber";
+import { getPets } from "@/actions/pets";
 
-export const PetGrid = () => {
-  return (
-    <>
-      <PetFoundNumber />
-      <section className="grid grid-cols-3 gap-12 w-full">
-        <Pet name="Gringa" sex={PET_SEX.FEMALE} age={2} />
-        <Pet name="Puddie" sex={PET_SEX.MALE} age={2} />
-        <Pet name="Monino" sex={PET_SEX.FEMALE} age={2} />
-      </section>
-    </>
-  );
+export const PetGrid = async () => {
+  const { pets, isOk } = await getPets();
+  if (isOk) {
+    return (
+      <>
+        <PetFoundNumber />
+        <section className="grid grid-cols-3 gap-12 w-full">
+          {pets.map((pet: IPet) => (
+            <Pet {...pet} />
+          ))}
+        </section>
+      </>
+    );
+  }
 };
