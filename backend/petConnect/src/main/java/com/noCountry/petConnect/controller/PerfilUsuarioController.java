@@ -5,7 +5,6 @@ import com.noCountry.petConnect.dto.ApiResponseDTO;
 import com.noCountry.petConnect.dto.PerfilUsuarioDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.PerfilUsuario;
-import com.noCountry.petConnect.model.Usuario;
 import com.noCountry.petConnect.repository.PerfilUsuarioRepository;
 import com.noCountry.petConnect.repository.UsuarioRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +34,7 @@ public class PerfilUsuarioController {
         PerfilUsuarioDTO perfilUsuarioDTO = new PerfilUsuarioDTO(perfil);
         return ResponseEntity.ok().body(new ApiResponseDTO<>(Status.SUCCESS,"Perfil usuario ecnontrado",perfilUsuarioDTO));
     }
+    /*
     @Operation(summary = "Crea el perfil de usuario")
     @PostMapping("/api/usuario/{id}")
     public ResponseEntity crearPerfilUsuario(@PathVariable long id, @RequestBody PerfilUsuarioDTO perfilUsuario){
@@ -43,7 +43,7 @@ public class PerfilUsuarioController {
         perfilUsuarioRepository.save(perfil);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<>(Status.SUCCESS,"El perfil de usuario ha sido creado",null));
     };
-
+    */
     @Operation(summary = "Actualiza el perfil de usuario")
     @PutMapping("/api/usuario/{id}")
     public ResponseEntity actualizarPerfilUsuario(@PathVariable long id, @RequestBody PerfilUsuarioDTO perfilUsuario) {
@@ -55,7 +55,6 @@ public class PerfilUsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponseDTO<>(Status.SUCCESS,"El perfil de usuario se ha actualizado correctamente",null));
     }
 
-    @Operation(summary = "Api para borrar un perfil de usuario en especifico")
     @DeleteMapping("/api/usuario/{id}")
     public ResponseEntity borrarPerfilUsuario(@PathVariable long id) {
         PerfilUsuario perfil = perfilUsuarioRepository.findById(id)

@@ -19,7 +19,7 @@ public record PerfilUsuarioDTO(@JsonProperty("name") String nombre,
                 perfil.getTelefono(),
                 perfil.getSexo(),
                 perfil.getDescripcion(),
-                perfil.getFecha_nacimiento(),
+                perfil.getFechaNacimiento(),
                 perfil.getLatitud(),
                 perfil.getLongitud());
 
