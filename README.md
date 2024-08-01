@@ -44,8 +44,11 @@ Es un sistema integral y seguro que facilita la gestión y coordinación en torn
 
 **Backend**
 
-- Spring
-- Swagger
+- Spring Boot.
+- PostgreSQL
+- Flyway
+- Swagger UI
+- AWS S3
 
 **Organización**
 
