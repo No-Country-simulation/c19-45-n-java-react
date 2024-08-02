@@ -1,8 +1,12 @@
 import { API } from "@/utils/API";
 
-export const getPets = async () => {
+export const getPets = async (params: any) => {
   try {
-    const pets = await API.get("/mascotas");
+    let url = "/mascotas/filtrar";
+    if (params) {
+      url += `?${params}`;
+    }
+    const pets = await API.get(url);
 
     return {
       isOk: pets.data.status === "SUCCESS",

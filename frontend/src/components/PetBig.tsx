@@ -11,14 +11,14 @@ export const PetBig = async ({ id }: IPetBig) => {
     return (
       <>
         <BannerPet
-          name={pet.nombre}
-          picture={pet.fotoPrincipalUrl}
-          age={pet.edad}
-          specie={pet.raza}
-          sex={pet.sexo}
+          name={pet.name}
+          picture={pet?.photo}
+          age={pet.age}
+          specie={pet.breed}
+          sex={pet.sex}
         />
-        <Contact />
-        <PetPictures pictures={pet.fotosExtra} />
+        <Contact name={pet.owner.name} email={pet.owner.email} />
+        <PetPictures pictures={pet.additionalPhotos} />
       </>
     );
   }

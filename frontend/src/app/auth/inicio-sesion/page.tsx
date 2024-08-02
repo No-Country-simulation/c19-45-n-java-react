@@ -6,9 +6,6 @@ const PageLogin = () => {
     <section className="flex justify-center flex-col items-center my-12">
       <div className="flex flex-col gap-3 text-center">
         <h1 className="text-6xl font-bold">Inicio de Sesión</h1>
-        <Link href="/" className="text-3xl underline font-semibold">
-          Olvidé mi contraseña{" "}
-        </Link>
       </div>
 
       <div className="w-[700px] mt-8 flex flex-col gap-6">

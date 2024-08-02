@@ -14,7 +14,7 @@ export const PetLarge = () => {
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
-            <h1 className="font-bold text-4xl">Gringa</h1>
+            <h1 className="font-bold text-4xl">Gringo</h1>
             <Link
               href="/dashboard/mascotas/1?accion=editar-mascota"
               className="btn btn-active text-white btn-md shadow-lg text-md px-6"
@@ -27,10 +27,10 @@ export const PetLarge = () => {
               <b>Edad:</b> 2 años
             </p>
             <p className="text-xl">
-              <b>Sexo:</b> Hembra
+              <b>Sexo:</b> Macho
             </p>
             <p className="text-xl">
-              <b>Especie:</b> Gato
+              <b>Especie:</b> Perro
             </p>
             <p className="text-xl">
               <b>Raza:</b> -

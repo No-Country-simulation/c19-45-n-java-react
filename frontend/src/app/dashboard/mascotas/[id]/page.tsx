@@ -29,7 +29,7 @@ const PageDashboardPet = () => {
           type="button"
           className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl"
         >
-          <p>{action === "crear-mascota" ? "Crear" : "Editar"} Mascota</p>
+          <p>{action === "crear-mascota" ? "Crear" : "Editar"}</p>
         </button>
       </div>
     </>
