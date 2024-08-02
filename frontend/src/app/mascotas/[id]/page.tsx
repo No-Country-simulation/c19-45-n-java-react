@@ -1,14 +1,21 @@
-import { BannerPet, Contact, GoBack, PetPictures } from "@/components";
+"use client";
+
+import { BtnAdoptPet, GoBack, ModalAdoptPet, PetBig } from "@/components";
+import { useParams } from "next/navigation";
 
 const PagePet = () => {
-  return (
-    <>
-      <GoBack />
-      <BannerPet />
-      <Contact />
-      <PetPictures />
-    </>
-  );
+  const params = useParams();
+  const petId = +params.id;
+  if (petId) {
+    return (
+      <>
+        <GoBack />
+        <PetBig id={petId} />
+        <BtnAdoptPet />
+        <ModalAdoptPet />
+      </>
+    );
+  }
 };
 
 export default PagePet;

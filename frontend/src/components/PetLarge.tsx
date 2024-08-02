@@ -1,62 +1,49 @@
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
 
-interface PetLargeProps {
-  imageSrc: string;
-  name: string;
-  age: string;
-  species: string;
-  vaccines: string;
-  sex: string;
-  breed: string;
-  sterilized: string;
-  
-}
-
-const PetLarge: React.FC<PetLargeProps> = ({
-  imageSrc,
-  name,
-  age,
-  species,
-  vaccines,
-  sex,
-  breed,
-  sterilized,
-  
-}) => {
+export const PetLarge = () => {
   return (
-    <div className="bg-[#FFCD82] p-4 w-3/4 rounded-lg shadow-md">
-      <div className="card sm:flex flex-col items-start md:card-side bg-[#FFCD82] shadow-xl">
-        <figure>
-          <Image
-            className="max-w-sm rounded-lg"
-            src={imageSrc}
-            width={300}
-            height={300}
-            alt={`Picture of ${name}`}
-          />
-        </figure>
-        <div className="card-body flex sm:flex-col md:flex-row content-between items-end justify-evenly">
-          <div>
-            <h2 className="card-title font-bold text-2xl mb-2">Nombre: {name}</h2>
-            <p className="font-bold">Edad: {age}</p>
-            <p className="font-bold">Especie: {species}</p>
-            <p className="font-bold">Vacunas: {vaccines}</p>
+    <div className="bg-[#FFCD82] p-4 w-full rounded-lg shadow-md">
+      <div className="flex gap-8 items-center">
+        <Image
+          src="/pet.png"
+          width={100}
+          height={100}
+          alt="Mascota"
+          className="shadow-lg w-[250px] object-cover rounded-lg bg-[#FFE2B6]"
+        />
+        <div className="w-full">
+          <div className="flex justify-between items-center">
+            <h1 className="font-bold text-4xl">Gringo</h1>
+            <Link
+              href="/dashboard/mascotas/1?accion=editar-mascota"
+              className="btn btn-active text-white btn-md shadow-lg text-md px-6"
+            >
+              <span>Editar</span>
+            </Link>
           </div>
-          <div>
-            <p className="font-bold">Sexo: {sex}</p>
-            <p className="font-bold">Raza: {breed}</p>
-            <p className="font-bold">Esterilizado: {sterilized}</p>
-          </div>
-          <div className="card-actions justify-end ml-10">
-            <button className="btn btn-primary bg-black text-2xl" >
-              Editar
-            </button>
+          <div className="grid grid-cols-2 gap-1 mt-3">
+            <p className="text-xl">
+              <b>Edad:</b> 2 años
+            </p>
+            <p className="text-xl">
+              <b>Sexo:</b> Macho
+            </p>
+            <p className="text-xl">
+              <b>Especie:</b> Perro
+            </p>
+            <p className="text-xl">
+              <b>Raza:</b> -
+            </p>
+            <p className="text-xl">
+              <b>Vacunas al día:</b> Si
+            </p>
+            <p className="text-xl">
+              <b>Esterelización:</b> Si
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default PetLarge;

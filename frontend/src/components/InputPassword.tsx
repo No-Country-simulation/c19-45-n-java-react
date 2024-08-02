@@ -6,9 +6,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 interface IInputPassword {
   label: string;
   placeholder: string;
+  value?: string;
 }
 
-export const InputPassword = ({ label, placeholder }: IInputPassword) => {
+export const InputPassword = ({
+  label,
+  placeholder,
+  value,
+}: IInputPassword) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
@@ -22,6 +27,7 @@ export const InputPassword = ({ label, placeholder }: IInputPassword) => {
           type={showPassword ? "text" : "password"}
           className="bg-white p-5 w-full rounded-lg shadow-md"
           placeholder={placeholder}
+          value={value}
         />
         <span
           className="absolute right-4 top-4 cursor-pointer"

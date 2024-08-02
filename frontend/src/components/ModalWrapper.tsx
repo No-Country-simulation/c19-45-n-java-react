@@ -38,12 +38,12 @@ export const ModalWrapper = ({
               />
             </div>
             {title && (
-              <div className={`${!subtitle ? "mb-4" : ""} text-center`}>
+              <div className={`${!subtitle ? "mb-2" : ""} text-center`}>
                 <h3 className="text-5xl leading-6 font-bold cfc-text-purple-300">
                   {title}
                 </h3>
                 {subtitle && (
-                  <p className="mb-4 mt-5 text-2xl font-bold text-black">
+                  <p className="mb-2 mt-5 text-2xl font-bold text-black">
                     {subtitle}
                   </p>
                 )}

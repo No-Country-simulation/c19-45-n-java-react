@@ -26,3 +26,6 @@ export * from "./FormPetPictures";
 export * from "./PetLarge";
 export * from "./PetLargeGrid";
 export * from "./ModalFilter";
+export * from "./ModalAdoptPet";
+export * from "./BtnAdoptPet";
+export * from "./PetBig";
