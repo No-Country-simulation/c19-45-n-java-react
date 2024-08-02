@@ -14,21 +14,27 @@ public record MascotaResponseDTO(
         @JsonProperty("age") String edad,
         @JsonProperty("sex") Sexo sexo,
         @JsonProperty("color") String color,
+        @JsonProperty("vaccinated") Boolean vacunado,
+        @JsonProperty("sterilized") Boolean esterilizado,
         @JsonProperty("photo") String fotoPrincipalUrl,
         @JsonProperty("additionalPhotos")List<String> fotosExtra,
-        @JsonProperty("status") String estado
+        @JsonProperty("status") String estado,
+        @JsonProperty("owner") UsuarioMascotaResponseDTO usuario
 ) {
     public MascotaResponseDTO(Mascota mascota) {
         this(mascota.getId(),
-             mascota.getNombre(),
-             new EspecieDTO(mascota.getEspecie()),
-             mascota.getRaza(),
-             mascota.getEdad(),
-             mascota.getSexo(),
-             mascota.getColor(),
-             mascota.getFotoPrincipalUrl(),
-             mascota.getFotosExtra(),
-             mascota.getEstado()
+                mascota.getNombre(),
+                new EspecieDTO(mascota.getEspecie()),
+                mascota.getRaza(),
+                mascota.getEdad(),
+                mascota.getSexo(),
+                mascota.getColor(),
+                mascota.getVacunado(),
+                mascota.getEsterilizado(),
+                mascota.getFotoPrincipalUrl(),
+                mascota.getFotosExtra(),
+                mascota.getEstado(),
+                new UsuarioMascotaResponseDTO(mascota.getDueño().getPerfilUsuario().getNombre(),mascota.getDueño().getEmail())
         );
 
 

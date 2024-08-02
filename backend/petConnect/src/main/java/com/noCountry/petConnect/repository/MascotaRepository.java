@@ -13,10 +13,11 @@ import java.util.List;
 public interface MascotaRepository extends JpaRepository<Mascota, Long> {
 
     @Query("SELECT m FROM mascotas m WHERE " +
-            "(:nombre IS NULL OR LOWER(m.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) AND " +
+            "(COALESCE(:nombre, '') = '' OR LOWER(m.nombre) LIKE LOWER(CONCAT('%', :nombre, '%'))) AND " +
             "(:sexo IS NULL OR m.sexo = :sexo) AND " +
             "(:especieId IS NULL OR m.especie.id = :especieId)")
     List<Mascota> filtrarMascotas(@Param("nombre") String nombre,
                                   @Param("sexo") Sexo sexo,
                                   @Param("especieId") Long especieId);
+
 }

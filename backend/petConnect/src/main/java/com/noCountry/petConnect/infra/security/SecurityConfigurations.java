@@ -26,7 +26,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers(
                                         PathRequest.toStaticResources().atCommonLocations(),
-                                        new AntPathRequestMatcher("/images/**"),
+                                        new AntPathRequestMatcher("/image/**"),
                                         new AntPathRequestMatcher("/api/usuario/{id}"),
                                         new AntPathRequestMatcher("/swagger-ui.html"),
                                         new AntPathRequestMatcher("/v3/api-docs/**"),
@@ -36,7 +36,6 @@ public class SecurityConfigurations {
                                         new AntPathRequestMatcher("/api/email/confirmacion"),
                                         new AntPathRequestMatcher("/api/email/reenviar"),
                                         new AntPathRequestMatcher("/api/mascotas/**"),
-                                        new AntPathRequestMatcher("/api/usuario/{id}"),
                                         new AntPathRequestMatcher("/api/especies"),
                                         new AntPathRequestMatcher("/error")
                                 )

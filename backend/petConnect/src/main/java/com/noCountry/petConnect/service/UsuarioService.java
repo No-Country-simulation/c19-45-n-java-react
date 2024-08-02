@@ -55,7 +55,7 @@ public class UsuarioService {
         return cal.getTime();
     }
 
-    public void saveUsuario(Usuario usuario) {
-        usuarioRepository.save(usuario);
+    public Usuario saveUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 }

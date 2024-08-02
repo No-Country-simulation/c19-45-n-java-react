@@ -93,17 +93,17 @@ public class MascotaService {
         Especie especie = especieRepository.findById(mascotaDTO.especieId())
                 .orElseThrow(() -> new ApplicationException("Especie con el id: " + mascotaDTO.especieId() + " no encontrada"));
 
-        mascota.setNombre(mascotaDTO.nombre());
+        if(mascotaDTO.nombre()!= null || !mascotaDTO.nombre().isEmpty()) mascota.setNombre(mascotaDTO.nombre());
         mascota.setEspecie(especie);
-        mascota.setRaza(mascotaDTO.raza());
-        mascota.setEdad(mascotaDTO.edad());
-        mascota.setSexo(mascotaDTO.sexo());
-        mascota.setColor(mascotaDTO.color());
-        mascota.setNecesidadesEspeciales(mascotaDTO.necesidadesEspeciales());
-        mascota.setVacunado(mascotaDTO.vacunado());
-        mascota.setEsterilizado(mascotaDTO.esterilizado());
-        mascota.setEstado(mascotaDTO.estado());
-        mascota.setFotoPrincipalUrl(mascotaDTO.fotoPrincipalUrl());
+        if(mascotaDTO.raza() != null || !mascotaDTO.raza().isEmpty()) mascota.setRaza(mascotaDTO.raza());
+        if(mascotaDTO.edad()!= null || !mascotaDTO.edad().isEmpty()) mascota.setEdad(mascotaDTO.edad());
+        if(mascotaDTO.sexo()!= null ) mascota.setSexo(mascotaDTO.sexo());
+        if(mascotaDTO.color()!= null || !mascotaDTO.color().isEmpty())mascota.setColor(mascotaDTO.color());
+        if(mascotaDTO.necesidadesEspeciales()!= null || !mascotaDTO.necesidadesEspeciales().isEmpty())mascota.setNecesidadesEspeciales(mascotaDTO.necesidadesEspeciales());
+        if(mascotaDTO.vacunado()!= null) mascota.setVacunado(mascotaDTO.vacunado());
+        if(mascotaDTO.esterilizado()!= null)mascota.setEsterilizado(mascotaDTO.esterilizado());
+        if(mascotaDTO.estado()!= null || !mascotaDTO.estado().isEmpty())mascota.setEstado(mascotaDTO.estado());
+        if(mascotaDTO.fotoPrincipalUrl()!= null || !mascotaDTO.fotoPrincipalUrl().isEmpty() && mascotaDTO.fotoPrincipalUrl()!= mascota.getFotoPrincipalUrl()) mascota.setFotoPrincipalUrl(mascotaDTO.fotoPrincipalUrl());
         mascota.setFotosExtra(mascotaDTO.fotosExtra());
 
         return mascotaRepository.save(mascota);
