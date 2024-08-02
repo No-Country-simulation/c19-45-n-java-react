@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  FormBasic,
-  FormContact,
-  STEP_FORM,
-  StepsForm,
-} from "@/app/_components";
 import Link from "next/link";
 import { useState } from "react";
+import { FormBasic, FormContact, STEP_FORM, StepsForm } from "@/components";
 
 const PageRegister = () => {
   const [step, setStep] = useState(STEP_FORM.BASIC);

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { WelcomeContent, WelcomeTitle } from "@/app/_components";
+import { WelcomeContent, WelcomeTitle } from "@/components";
 
 const PageWelcome = () => {
   return (
@@ -8,10 +8,11 @@ const PageWelcome = () => {
       <Image src="/pet.png" width={300} height={400} alt="Perro" />
       <WelcomeTitle />
       <WelcomeContent />
-      <Link href="/mascotas">
-        <button className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl mt-6">
-          Ingresar
-        </button>
+      <Link
+        href="/mascotas"
+        className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl mt-6"
+      >
+        Ingresar
       </Link>
       <Link
         href="/auth/inicio-sesion"

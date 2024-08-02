@@ -1,15 +1,12 @@
-import { Input, InputPassword } from "@/app/_components";
 import Link from "next/link";
+import { Input, InputPassword } from "@/components";
 
 const PageLogin = () => {
   return (
     <section className="flex justify-center flex-col items-center my-12">
       <div className="flex flex-col gap-3 text-center">
         <h1 className="text-6xl font-bold">Inicio de Sesión</h1>
-        <Link
-          href="/"
-          className="text-3xl underline font-semibold"
-        >
+        <Link href="/" className="text-3xl underline font-semibold">
           Olvidé mi contraseña{" "}
         </Link>
       </div>
@@ -23,12 +20,13 @@ const PageLogin = () => {
         <InputPassword label="Contraseña" placeholder="Ingrese su contraseña" />
 
         <div className="mt-4 flex flex-col items-center gap-4">
-          <button
+          <Link
+            href="/dashboard/mascotas"
             type="button"
             className="btn btn-active text-white btn-lg w-56 shadow-lg text-2xl"
           >
             <p>Ingresar</p>
-          </button>
+          </Link>
           <Link
             href="/auth/registro"
             className="underline font-medium text-3xl"

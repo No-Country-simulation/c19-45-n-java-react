@@ -1,8 +1,11 @@
 package com.noCountry.petConnect.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.noCountry.petConnect.config.S3Config;
 import com.noCountry.petConnect.constants.Status;
 import com.noCountry.petConnect.dto.ApiResponseDTO;
-import com.noCountry.petConnect.dto.UsuarioCrearDTO;
 import com.noCountry.petConnect.infra.errores.ApplicationException;
 import com.noCountry.petConnect.model.PerfilUsuario;
 import com.noCountry.petConnect.model.Rol;
@@ -13,48 +16,77 @@ import com.noCountry.petConnect.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
+import java.util.UUID;
 
 @Tag(name = "Usuario")
 @RestController
 public class UsuarioController {
 
+    @Autowired
+    private S3Config s3Config;
+
+    @Autowired
+    private AmazonS3 s3Client;
+
     private final UsuarioService usuarioService;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
-    private final PerfilUsuarioRepository perfilUsuarioRepository;
+    @Autowired
+    private PerfilUsuarioRepository perfilUsuarioRepository;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService, PasswordEncoder passwordEncoder, EmailService emailService, PerfilUsuarioRepository perfilUsuarioRepository) {
+    public UsuarioController(UsuarioService usuarioService, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.usuarioService = usuarioService;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
-        this.perfilUsuarioRepository = perfilUsuarioRepository;
     }
 
     @Operation(summary = "Api para crear nuevos usuarios, no incluye administradores")
     @Transactional
-    @PostMapping("/api/usuarios")
-    public ResponseEntity<ApiResponseDTO> crearUsuario(@RequestBody @Valid UsuarioCrearDTO datosUsuario) {
-        if (usuarioService.isEmailExists(datosUsuario.email())) {
+    @PostMapping(value = "/api/usuarios", consumes = "multipart/form-data")
+    public ResponseEntity<ApiResponseDTO> crearUsuario(
+            @RequestParam("username") String username,
+            @RequestParam("email") @Email String email,
+            @RequestParam("password") String password,
+            @RequestParam("sex") String sexo,
+            @RequestParam(value = "photo", required = false) MultipartFile foto,
+            @RequestParam("description") String descripcion,
+            @RequestParam("name") String nombre,
+            @RequestParam("telephone") String telefono,
+            @RequestParam("birthDate") String fechaNacimiento) {
+
+        if (usuarioService.isEmailExists(email)) {
             throw new ApplicationException("El correo electrónico ya ha sido registrado anteriormente. Por favor, intenta iniciar sesión.");
         }
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaNacimientoFormat;
+        try {
+            fechaNacimientoFormat = format.parse(fechaNacimiento);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Fecha de nacimiento inválida", e);
+        }
+
         // Creación del usuario
-        String password = passwordEncoder.encode(datosUsuario.password());
-        Usuario usuario = new Usuario(datosUsuario.username(), datosUsuario.email(), password);
+        String passwordEncriptado = passwordEncoder.encode(password);
+        Usuario usuario = new Usuario(username, email, passwordEncriptado);
         Rol rolUser = usuarioService.getRolUser(); // Recuperar rol por defecto
         usuario.setRoles(Collections.singletonList(rolUser)); // Asignar el rol al usuario
 
@@ -64,25 +96,40 @@ public class UsuarioController {
         usuario.setTokenExpiration(usuarioService.calculateExpirationDate());
 
         // Guardar usuario
-        usuarioService.saveUsuario(usuario);
+        Usuario usuarioGuardado = usuarioService.saveUsuario(usuario);
 
         // Manejo de la imagen
-        MultipartFile foto = datosUsuario.foto();
+        String fotoUrl = null;
         if (foto != null && !foto.isEmpty()) {
-            String fileName = foto.getOriginalFilename();
-            String filePath = "src/main/resources/static/images/" + fileName; // Ajusta la ruta según sea necesario
-            File destino = new File(filePath);
-            try {
-                foto.transferTo(destino);
+            // Generar nombre único para el archivo
+            String fileName = UUID.randomUUID().toString() + "-" + foto.getOriginalFilename();
+
+            // Crear el ObjectMetadata y configurar Content-Type y Content-Disposition
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(foto.getContentType()); // Configura el Content-Type del archivo
+            metadata.setContentDisposition("inline"); // Muestra el archivo en el navegador
+
+            try (InputStream inputStream = foto.getInputStream()) {
+                // Subir la imagen a S3 con los metadatos configurados
+                s3Client.putObject(new PutObjectRequest(s3Config.bucketName(), fileName, inputStream, metadata));
+                fotoUrl = s3Client.getUrl(s3Config.bucketName(), fileName).toString(); // Obtener URL de la imagen
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Error al subir la imagen a S3", e);
             }
         }
 
         // Crear perfil de usuario
-        PerfilUsuario perfil = new PerfilUsuario(usuario, datosUsuario.nombre(), foto.getOriginalFilename(),
-                datosUsuario.telefono(), datosUsuario.sexo(),
-                datosUsuario.descripcion(), datosUsuario.fechaNacimiento());
+        PerfilUsuario perfil = new PerfilUsuario();
+        perfil.setUsuario(usuarioGuardado); // Establece la relación con el usuario guardado
+        perfil.setNombre(nombre);
+        perfil.setFoto(fotoUrl);
+        perfil.setTelefono(telefono);
+        perfil.setSexo(sexo);
+        perfil.setDescripcion(descripcion);
+        perfil.setFechaNacimiento(fechaNacimientoFormat);
+        perfil.setLatitud(0); // Ajusta según sea necesario
+        perfil.setLongitud(0); // Ajusta según sea necesario
+
         perfilUsuarioRepository.save(perfil);
 
         // Enviar el correo de confirmación
@@ -93,17 +140,8 @@ public class UsuarioController {
                 "Usuario y perfil creados con éxito. Por favor, verifica tu correo electrónico para activar tu cuenta.", null));
     }
 
-    @Operation(summary = "Api para crear un nuevo password")
     @PostMapping("/api/usuario/password")
     public ResponseEntity<ApiResponseDTO> changePassword(@RequestBody String password) {
-        String passwordEncriptada = passwordEncoder.encode(password);
-        //obtener usuario
-        return ResponseEntity.ok().body(new ApiResponseDTO(Status.SUCCESS,"Contraseña cambiada correctamente",null));
-    }
-
-    @Operation(summary = "Api para recuperar restablecer password")
-    @PostMapping("/api/usuario/password/recuperar")
-    public ResponseEntity<ApiResponseDTO> recuperarPassword(@RequestBody String password) {
         String passwordEncriptada = passwordEncoder.encode(password);
         //obtener usuario
         return ResponseEntity.ok().body(new ApiResponseDTO(Status.SUCCESS,"Contraseña cambiada correctamente",null));
